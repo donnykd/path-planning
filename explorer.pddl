@@ -8,6 +8,10 @@
     (left ?e - explorer)    
     (check_right ?e - explorer)
     (right ?e - explorer)
+    (check_up ?e - explorer)
+    (up ?e - explorer)
+    (check_down ?e - explorer)
+    (down ?e - explorer)
 ) 
 
 (:action move-left 
@@ -29,6 +33,26 @@
     )
     :effect (and 
         (right ?e)
+    )
+)
+
+(:action move-up
+    :parameters (?e - explorer)
+    :precondition (and 
+        (check_up ?e)
+    )
+    :effect (and 
+        (up ?e)
+    )
+)
+
+(:action move-down
+    :parameters (?e - explorer)
+    :precondition (and 
+        (check_down ?e)
+    )
+    :effect (and 
+        (down ?e)
     )
 )
 

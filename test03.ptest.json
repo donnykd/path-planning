@@ -1,0 +1,9 @@
+{
+    "defaultDomain": "explorer.pddl",
+    "defaultOptions": "",
+    "cases": [
+        {
+            "problem": "problem03.pddl"
+        }
+    ]
+}
