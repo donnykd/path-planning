@@ -6,6 +6,8 @@
 (:predicates 
     (check_left ?e - explorer)
     (left ?e - explorer)    
+    (check_right ?e - explorer)
+    (right ?e - explorer)
 ) 
 
 (:action move-left 
@@ -19,6 +21,17 @@
         )
     
     )
+
+(:action move-right
+    :parameters (?e - explorer)
+    :precondition (and 
+        (check_right ?e)
+    )
+    :effect (and 
+        (right ?e)
+    )
+)
+
     
 
 )
