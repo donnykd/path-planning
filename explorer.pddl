@@ -6,13 +6,9 @@
 (:predicates 
     (located ?e - explorer ?x - vector)
     (left ?x - vector ?y - vector)    
-    (check_right ?e - explorer)
-    (right ?e - explorer)
-    (check_up ?e - explorer)
-    (up ?e - explorer)
-    (check_down ?e - explorer)
-    (down ?e - explorer)
-
+    (right ?x - vector ?y - vector)
+    (up ?x - vector ?y - vector)
+    (down ?x - vector ?y - vector)
     (free ?x - vector)
 ) 
 
@@ -33,32 +29,47 @@
     )
 
 (:action move-right
-    :parameters (?e - explorer)
+    :parameters (?e - explorer ?x - vector ?y - vector)
     :precondition (and 
-        (check_right ?e)
+        (located ?e ?x)
+        (right ?y ?x)
+        (free ?y)
     )
     :effect (and 
-        (right ?e)
+        (located ?e ?y)
+        (not(located ?e ?x))
+        (free ?x)
+        (not(free ?y))
     )
 )
 
 (:action move-up
-    :parameters (?e - explorer)
+    :parameters (?e - explorer ?x - vector ?y - vector)
     :precondition (and 
-        (check_up ?e)
+        (located ?e ?x)
+        (up ?y ?x)
+        (free ?y)
     )
     :effect (and 
-        (up ?e)
+        (located ?e ?y)
+        (not(located ?e ?x))
+        (free ?x)
+        (not(free ?y))
     )
 )
 
 (:action move-down
-    :parameters (?e - explorer)
+    :parameters (?e - explorer ?x - vector ?y - vector)
     :precondition (and 
-        (check_down ?e)
+        (located ?e ?x)
+        (down ?y ?x)
+        (free ?y)
     )
     :effect (and 
-        (down ?e)
+        (located ?e ?y)
+        (not(located ?e ?x))
+        (free ?x)
+        (not(free ?y))
     )
 )
 
