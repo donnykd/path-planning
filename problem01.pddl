@@ -10,6 +10,7 @@
 (:init
     (located player block0_2)
     (left block0_1 block0_2)
+    (free block0_1)
 )
 
 (:goal (and

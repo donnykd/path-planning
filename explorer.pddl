@@ -12,6 +12,8 @@
     (up ?e - explorer)
     (check_down ?e - explorer)
     (down ?e - explorer)
+
+    (free ?x - vector)
 ) 
 
 (:action move-left 
@@ -19,9 +21,13 @@
     :precondition (and 
         (located ?e ?x)
         (left ?y ?x)
+        (free ?y)
         )
     :effect (and 
         (located ?e ?y)
+        (not(located ?e ?x))
+        (free ?x)
+        (not(free ?y))
         )
     
     )
