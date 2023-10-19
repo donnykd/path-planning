@@ -1,36 +1,34 @@
-(define (problem move-left-01) 
+(define (problem move-left) 
 
 (:domain explorer)
 
 (:objects
     player - explorer
-    block0_1 block0_2 block0_3
-    block0_4 block0_5 block0_6 
-    block0_7 block0_8 block0_9 - vector
+    block1_0 block2_0 block3_0 block4_0 block5_0 block6_0 block7_0 block8_0 block9_0 - vector
 )
 
 (:init
-    (located player block0_9)
-    (left block0_8 block0_9)
-    (left block0_7 block0_8)
-    (left block0_6 block0_7)
-    (left block0_5 block0_6)
-    (left block0_4 block0_5)
-    (left block0_3 block0_4)
-    (left block0_2 block0_3)
-    (left block0_1 block0_2)
-    (free block0_1)
-    (free block0_2)
-    (free block0_3)
-    (free block0_5)
-    (free block0_4)
-    (free block0_6)
-    (free block0_7)
-    (free block0_8)
+    (located player block9_0)
+    (left block8_0 block9_0)
+    (left block7_0 block8_0)
+    (left block6_0 block7_0)
+    (left block5_0 block6_0)
+    (left block4_0 block5_0)
+    (left block3_0 block4_0)
+    (left block2_0 block3_0)
+    (left block1_0 block2_0)
+    (free block1_0)
+    (free block2_0)
+    (free block3_0)
+    (free block4_0)
+    (free block5_0)
+    (free block6_0)
+    (free block7_0)
+    (free block8_0)
 )
 
 (:goal (and
-    (located player block0_1)
+    (located player block1_0)
     )
 
 )

@@ -1,9 +1,15 @@
-(define (problem move-down-01) (:domain explorer)
+(define (problem move-down) (:domain explorer)
 (:objects 
     player - explorer
-    block0_1 block0_2 block0_3
-    block0_4 block0_5 block0_6 
-    block0_7 block0_8 block0_9 - vector
+    block0_1
+    block0_2 
+    block0_3
+    block0_4 
+    block0_5 
+    block0_6 
+    block0_7
+    block0_8 
+    block0_9 - vector
 )
 
 (:init
