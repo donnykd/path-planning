@@ -1,11 +1,11 @@
 (define (domain explorer)
 (:requirements :strips :negative-preconditions :typing)
 
-(:types explorer)
+(:types explorer vector)
 
 (:predicates 
-    (check_left ?e - explorer)
-    (left ?e - explorer)    
+    (located ?e - explorer ?x - vector)
+    (left ?x - vector ?y - vector)    
     (check_right ?e - explorer)
     (right ?e - explorer)
     (check_up ?e - explorer)
@@ -15,13 +15,13 @@
 ) 
 
 (:action move-left 
-    :parameters (?e - explorer)
+    :parameters (?e - explorer ?x - vector ?y - vector)
     :precondition (and 
-        (check_left ?e)
-        
+        (located ?e ?x)
+        (left ?y ?x)
         )
     :effect (and 
-        (left ?e)
+        (located ?e ?y)
         )
     
     )

@@ -4,15 +4,16 @@
 
 (:objects
     player - explorer
+    block0_1 block0_2 - vector
 )
 
 (:init
-    (check_left player)
+    (located player block0_2)
+    (left block0_1 block0_2)
 )
 
 (:goal (and
-    (left player)
-    
+    (located player block0_1)
     )
 
 )
