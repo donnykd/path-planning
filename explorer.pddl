@@ -1,15 +1,18 @@
 (define (domain explorer)
 (:requirements :strips :negative-preconditions :typing)
 
-(:types explorer vector)
+(:types explorer vector item)
 
 (:predicates 
     (located ?e - explorer ?x - vector)
+    (on ?k - item ?x - vector)
     (left ?x - vector ?y - vector)    
     (right ?x - vector ?y - vector)
     (up ?x - vector ?y - vector)
     (down ?x - vector ?y - vector)
     (free ?x - vector)
+    (stored ?e - explorer ?k - item)
+    (not_picked ?k - item)
 ) 
 
 (:action move-left 
@@ -72,6 +75,20 @@
         (not(free ?y))
     )
 )
+
+(:action pick_up
+    :parameters (?e - explorer ?k - item ?x - vector ?y - vector)
+    :precondition (and
+        (located ?e ?x)
+        (not_picked ?k)
+        (on ?k ?x)
+     )
+    :effect (and
+        (stored ?e ?k)
+        (not(not_picked ?k))
+     )
+)
+
 
     
 
