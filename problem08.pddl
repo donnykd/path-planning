@@ -1,6 +1,6 @@
-(define (problem pick_up_item) (:domain explorer)
+(define (problem give_item) (:domain explorer)
 (:objects 
-    player - explorer
+    player1 player2 - explorer
     block1 block2 block3
     block4 block5 block6 
     block7 block8 block9 - vector
@@ -9,9 +9,10 @@
 )
 
 (:init
-    (located player block1)
+    (located player1 block5)
+    (located player2 block6)
     (on key block9)
-    (placed_at chest block3)
+    (placed_at chest block1)
     (left block1 block2)
     (left block2 block3)
     (left block4 block5)
@@ -36,10 +37,10 @@
     (down block7 block4)
     (down block8 block5)
     (down block9 block6)
+    (free block1)
+    (free block2)
     (free block3)
     (free block4)
-    (free block5)
-    (free block6)
     (free block7)
     (free block8)
     (free block9)
