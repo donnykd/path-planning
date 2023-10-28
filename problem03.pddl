@@ -1,39 +1,41 @@
-(define (problem move-up) (:domain explorer)
+(define (problem pick_connected_item) (:domain explorer)
 (:objects 
     player - explorer
-    block0_9
-    block0_8 
-    block0_7
-    block0_6 
-    block0_5 
-    block0_4 
-    block0_3
-    block0_2 
-    block0_1 - vector
+    block1 block2 block3
+    block4 block5 block6 
+    block7 block8 block9 - location
+    key - item
+    chest - box
 )
 
 (:init
-    (located player block0_1)
-    (up block0_2 block0_1)
-    (up block0_3 block0_2)
-    (up block0_4 block0_3)
-    (up block0_5 block0_4)
-    (up block0_6 block0_5)
-    (up block0_7 block0_6)
-    (up block0_8 block0_7)
-    (up block0_9 block0_8)
-    (free block0_2)
-    (free block0_3)
-    (free block0_4)
-    (free block0_5)
-    (free block0_6)
-    (free block0_7)
-    (free block0_8)
-    (free block0_9)
+    (located player block1)
+    (on key block9)
+    (placed_at chest block3)
+    (connected block1 block2)
+    (connected block1 block4)
+    (connected block2 block3)
+    (connected block2 block5)
+    (connected block3 block6)
+    (connected block4 block5)
+    (connected block4 block7)
+    (connected block5 block6)
+    (connected block5 block8)
+    (connected block6 block9)
+    (connected block7 block8)
+    (connected block8 block9)
+    (free block3)
+    (free block4)
+    (free block5)
+    (free block6)
+    (free block7)
+    (free block8)
+    (free block9)
+    (not_picked key)
+    (locked chest)
 )
 
 (:goal (and
-    (located player block0_9)
+    (not(locked chest))
 ))
-
 )
