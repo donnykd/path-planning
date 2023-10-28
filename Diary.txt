@@ -3,3 +3,7 @@
 04/10/23 ~ Week 2: I have changed topics from aviation to exploration planning, researched about exploration planning, rewrote the abstract and finished the project plan.
 
 12/10/23 ~ Week 3: Started experimenting with the existing pddl models online, started on my own exploration domain, created a unit test on a move left action and a simple plan. 
+
+20/10/23 ~ Week 4: Had a meeting with Dr. Santiago yesterday for some guidance on my current progress and was given a reality check. Changed my approach on how I was modelling and now started to get good progress going. I aim to have a solid PDDL basis by the end of next week.
+
+26/10/23 ~ Week 5: A busy week but I got a decent amount of work in, currently struggling on a final problem in PDDL before I switch to doing a bit of GDDL (which I plan on starting tomorrow) to get more progress done. Unfortunately I believe its just the limitations of PDDL, but I might be wrong. Will try to figure this out by the weekend or ill have to bring this up in my meeting I have booked for next tuesday.
