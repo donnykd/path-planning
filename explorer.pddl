@@ -53,6 +53,34 @@
      )
 )
 
+(:action pull
+    :parameters (?e - explorer ?b - box ?x - location ?y - location ?z - location)
+    :precondition (and 
+        (located ?b ?x)
+        (connected ?x ?y)
+        (located ?e ?y)
+        (free ?z)
+        (or
+            (connected ?y ?z)
+            (connected ?z ?y)
+        )
+        (or
+            (not(blocked ?y ?z))
+            (not(blocked ?z ?y))
+        )
+    )
+    :effect (and 
+        (located ?b ?z)
+        (not(located ?b ?x))
+        (located ?e ?z)
+        (not(located ?e ?y))
+        (free ?x)
+        (not(free ?z))
+    )
+)
+
+
+
 (:action give
     :parameters (?e - explorer ?p - explorer ?k - item 
         ?x - location ?y - location)
