@@ -5,11 +5,13 @@
     block5 block6 block7 block8
     block9 block10 block11 block12
     block13 block14 block15 block16 - location
+    chair - obstacle
 )
 
 (:init
     (located player1 block1)
     (located player2 block16)
+    (located chair block11)
     (connected block1 block2)
     (connected block2 block3)
     (connected block3 block4)
@@ -47,7 +49,6 @@
     (free block8)
     (free block9)
     (free block10)
-    (free block11)
     (free block12)
     (free block13)
     (free block14)

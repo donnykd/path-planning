@@ -27,10 +27,8 @@
             (connected ?x ?y)
             (connected ?y ?x)
         )
-        (or
-            (not(blocked ?x ?y))
-            (not(blocked ?y ?x))
-        )
+        (not(blocked ?x ?y))
+        (not(blocked ?y ?x))
     )
     :effect (and 
         (located ?e ?y)
@@ -54,12 +52,16 @@
 )
 
 (:action pull
-    :parameters (?e - explorer ?b - box ?x - location ?y - location ?z - location)
+    :parameters (?e - explorer ?b - box ?x - location
+         ?y - location ?z - location)
     :precondition (and 
         (located ?b ?x)
-        (connected ?x ?y)
         (located ?e ?y)
         (free ?z)
+        (or
+            (connected ?x ?y)
+            (connected ?y ?x)
+        )
         (or
             (connected ?y ?z)
             (connected ?z ?y)
@@ -68,9 +70,13 @@
             (not(blocked ?y ?z))
             (not(blocked ?z ?y))
         )
+        (or
+            (not(blocked ?y ?x))
+            (not(blocked ?x ?y))
+        )
     )
     :effect (and 
-        (located ?b ?z)
+        (located ?b ?y)
         (not(located ?b ?x))
         (located ?e ?z)
         (not(located ?e ?y))
@@ -79,6 +85,39 @@
     )
 )
 
+(:action push
+    :parameters (?e - explorer ?b - box ?x - location
+         ?y - location ?z - location)
+    :precondition (and 
+        (located ?b ?x)
+        (located ?e ?y)
+        (free ?z)
+        (or
+            (connected ?x ?y)
+            (connected ?y ?x)
+        )
+        (or
+            (connected ?x ?z)
+            (connected ?z ?x)
+        )
+        (or
+            (not(blocked ?y ?x))
+            (not(blocked ?x ?y))
+        )
+        (or
+            (not(blocked ?z ?x))
+            (not(blocked ?x ?z))
+        )
+    )
+    :effect (and 
+        (located ?b ?z)
+        (not(located ?b ?x))
+        (located ?e ?x)
+        (not(located ?e ?y))
+        (free ?y)
+        (not(free ?z))
+    )
+)
 
 
 (:action give

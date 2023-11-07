@@ -24,7 +24,7 @@
     (connected block6 block9)
     (connected block7 block8)
     (connected block8 block9)
-    (free block3)
+    (free block2)
     (free block4)
     (free block5)
     (free block6)
