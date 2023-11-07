@@ -5,13 +5,13 @@
     block4 block5 block6 
     block7 block8 block9 - location
     key - item
-    chest - box
+    chest - chest
 )
 
 (:init
     (located player block1)
     (on key block9)
-    (placed_at chest block3)
+    (located chest block3)
     (connected block1 block2)
     (connected block1 block4)
     (connected block2 block3)

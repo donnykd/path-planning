@@ -7,3 +7,7 @@
 20/10/23 ~ Week 4: Had a meeting with Dr. Santiago yesterday for some guidance on my current progress and was given a reality check. Changed my approach on how I was modelling and now started to get good progress going. I aim to have a solid PDDL basis by the end of next week.
 
 26/10/23 ~ Week 5: A busy week but I got a decent amount of work in, currently struggling on a final problem in PDDL before I switch to doing a bit of GDDL (which I plan on starting tomorrow) to get more progress done. Unfortunately I believe its just the limitations of PDDL, but I might be wrong. Will try to figure this out by the weekend or ill have to bring this up in my meeting I have booked for next tuesday.
+
+01/11/23 ~ Week 6: Had another meeting with my supervisor yesterday. We talked about my project plan for a bit and had a discussion about how my end product should look. I raised my concerns about the project which were answered pretty well. I decided to drop GDDL and focus on creating a high level functioning path planning problem in a game environment. He also gave me some tips on how to write complex problems to test my code using python. My progress so far is pretty good.
+
+06/11/23 ~ Week 7: I have not done much the past week unfortunately. Was busy with my other modules and found that I had close to no time for this project. I did do some research on fastdownward though and brainstormed some ideas to make this path planning problem a bit more complex. I plan to get a lot finished by the end of this week. 

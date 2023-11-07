@@ -2,17 +2,19 @@
 (:requirements :strips :negative-preconditions
     :typing :disjunctive-preconditions)
 
-(:types explorer location item box)
+(:types location item entity - object
+    explorer box - entity
+    chest obstacle - box
+)
 
 (:predicates 
-    (located ?e - explorer ?x - location)
+    (located ?i - entity ?x - location)
     (on ?k - item ?x - location)
     (connected ?x - location ?y - location)
     (free ?x - location)
-    (stored ?e - explorer ?k - item)
+    (stored ?i - entity ?k - item)
     (not_picked ?k - item)
-    (placed_at ?b - box ?x - location)
-    (locked ?b - box)
+    (locked ?c - chest)
     (blocked ?x - location ?y - location)
 ) 
 
@@ -76,15 +78,15 @@
 
 
 (:action unlock
-    :parameters (?e - explorer ?k - item ?x - location ?b - box)
+    :parameters (?e - explorer ?k - item ?x - location ?c - chest)
     :precondition (and 
-        (placed_at ?b ?x)
-        (locked ?b)
+        (located ?c ?x)
+        (locked ?c)
         (located ?e ?x)
         (stored ?e ?k)
     )
     :effect (and 
-        (not(locked ?b))
+        (not(locked ?c))
         (not(stored ?e ?k))
     )
 )
