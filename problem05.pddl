@@ -1,17 +1,15 @@
-(define (problem pick_connected_item) (:domain explorer)
+(define (problem door-interactions) (:domain explorer)
 (:objects 
     player - explorer
     block1 block2 block3
     block4 block5 block6 
     block7 block8 block9 - location
-    key - item
-    chest - chest
+    door_key - item
 )
 
 (:init
-    (located player block1)
-    (on key block9)
-    (located chest block3)
+    (located player block8)
+    (on door_key block9)
     (connected block1 block2)
     (connected block1 block4)
     (connected block2 block3)
@@ -24,17 +22,21 @@
     (connected block6 block9)
     (connected block7 block8)
     (connected block8 block9)
+    (free block1)
     (free block2)
+    (free block3)
     (free block4)
     (free block5)
     (free block6)
     (free block7)
-    (free block8)
     (free block9)
-    (locked chest)
+    (blocked block4 block7)
+    (blocked block5 block8)
+    (blocked block6 block9)
+    (door block5 block8)
 )
 
 (:goal (and
-    (not(locked chest))
+    (located player block1)
 ))
 )

@@ -4,29 +4,41 @@
 
 (:types location item entity - object
     explorer box - entity
-    chest obstacle - box
+    chest - box
 )
 
 (:predicates 
+    ;Player or box/chest on a block
     (located ?i - entity ?x - location)
+    ;certain item is on a block
     (on ?k - item ?x - location)
     (connected ?x - location ?y - location)
+    ;checks if there isnt anyone occupying a block
     (free ?x - location)
+    ;either a chest or player is holding a key
     (stored ?i - entity ?k - item)
-    (not_picked ?k - item)
+    (picked ?k - item)
     (locked ?c - chest)
+    ;no direct access between both location
     (blocked ?x - location ?y - location)
+    ;similar to blocked but can be opened
+    (door ?x - location ?y - location)
+    ;used to open door
+    (in_door ?k - item)
 ) 
 
+;move from one block to another
 (:action move
     :parameters (?e - explorer ?x - location ?y - location)
     :precondition (and 
         (located ?e ?x)
         (free ?y)
+        ;allows flexibility in init to only declare connection once
         (or
             (connected ?x ?y)
             (connected ?y ?x)
         )
+        ;makes sure there is direct access
         (not(blocked ?x ?y))
         (not(blocked ?y ?x))
     )
@@ -38,19 +50,20 @@
     )
 )
 
+;pick up item from currently located block
 (:action pick_up
     :parameters (?e - explorer ?k - item ?x - location)
     :precondition (and
         (located ?e ?x)
-        (not_picked ?k)
         (on ?k ?x)
      )
     :effect (and
         (stored ?e ?k)
-        (not(not_picked ?k))
+        (picked ?k)
      )
 )
 
+;pull box
 (:action pull
     :parameters (?e - explorer ?b - box ?x - location
          ?y - location ?z - location)
@@ -58,22 +71,22 @@
         (located ?b ?x)
         (located ?e ?y)
         (free ?z)
+        ;allows flexibility in init to only declare connection once
+        ;explorer and box connected
         (or
             (connected ?x ?y)
             (connected ?y ?x)
         )
+        ;explorer is connected to the free space to pull back to
         (or
             (connected ?y ?z)
             (connected ?z ?y)
         )
-        (or
-            (not(blocked ?y ?z))
-            (not(blocked ?z ?y))
-        )
-        (or
-            (not(blocked ?y ?x))
-            (not(blocked ?x ?y))
-        )
+        ;makes sure there is direct access
+        (not(blocked ?y ?z))
+        (not(blocked ?z ?y))
+        (not(blocked ?y ?x))
+        (not(blocked ?x ?y))
     )
     :effect (and 
         (located ?b ?y)
@@ -85,6 +98,7 @@
     )
 )
 
+;push box
 (:action push
     :parameters (?e - explorer ?b - box ?x - location
          ?y - location ?z - location)
@@ -92,22 +106,22 @@
         (located ?b ?x)
         (located ?e ?y)
         (free ?z)
+        ;allows flexibility in init to only declare connection once
+        ;explorer and box connected
         (or
             (connected ?x ?y)
             (connected ?y ?x)
         )
+        ;box is connected to the space to be pushed to
         (or
             (connected ?x ?z)
             (connected ?z ?x)
         )
-        (or
-            (not(blocked ?y ?x))
-            (not(blocked ?x ?y))
-        )
-        (or
-            (not(blocked ?z ?x))
-            (not(blocked ?x ?z))
-        )
+        ;makes sure there is direct access
+        (not(blocked ?y ?x))
+        (not(blocked ?x ?y))
+        (not(blocked ?z ?x))
+        (not(blocked ?x ?z))
     )
     :effect (and 
         (located ?b ?z)
@@ -119,23 +133,24 @@
     )
 )
 
-
+;interaction between 2 explorers to give key to another
 (:action give
     :parameters (?e - explorer ?p - explorer ?k - item 
         ?x - location ?y - location)
     :precondition (and 
         (stored ?e ?k)
         (not(stored ?p ?k))
+        ;both explorers are next to each other
         (located ?e ?x)
         (located ?p ?y)
+        ;allows flexibility in init to only declare connection once
         (or
             (connected ?x ?y)
             (connected ?y ?x)
         )
-        (or
-            (not(blocked ?x ?y))
-            (not(blocked ?y ?x))
-        )
+        ;makes sure there is direct access
+        (not(blocked ?x ?y))
+        (not(blocked ?y ?x))
     )
     :effect (and 
         (not(stored ?e ?k))
@@ -143,13 +158,19 @@
     )
 )
 
-
-(:action unlock
-    :parameters (?e - explorer ?k - item ?x - location ?c - chest)
+;open chest
+(:action open
+    :parameters (?e - explorer ?k - item ?x - location 
+        ?y - location    ?c - chest)
     :precondition (and 
         (located ?c ?x)
         (locked ?c)
-        (located ?e ?x)
+        (located ?e ?y)
+        ;allows flexibility in init to only declare connection once
+        (or
+            (connected ?x ?y)
+            (connected ?y ?x)
+        )
         (stored ?e ?k)
     )
     :effect (and 
@@ -157,6 +178,33 @@
         (not(stored ?e ?k))
     )
 )
+
+;unlock door
+(:action unlock
+    :parameters (?e - explorer ?x - location ?y - location
+         ?k - item)
+    :precondition (and 
+        (located ?e ?x)
+        (stored ?e ?k)
+        (or
+            (door ?x ?y)
+            (door ?y ?x)
+        )
+        (or
+            (blocked ?x ?y)
+            (blocked ?y ?x)
+        )
+        (not(in_door ?k))
+
+    )
+    :effect (and 
+        (not (stored ?e ?k))
+        (in_door ?k)
+        (not (blocked ?x ?y))
+        (not (blocked ?y ?x))
+    )
+)
+
 
 
     

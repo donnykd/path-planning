@@ -32,7 +32,6 @@
     (free block7)
     (free block8)
     (free block9)
-    (not_picked key)
     (locked chest)
 )
 
