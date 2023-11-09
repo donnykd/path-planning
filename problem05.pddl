@@ -4,12 +4,12 @@
     block1 block2 block3
     block4 block5 block6 
     block7 block8 block9 - location
-    door_key - item
+    key - item
 )
 
 (:init
     (located player block8)
-    (on door_key block9)
+    (on key block9)
     (connected block1 block2)
     (connected block1 block4)
     (connected block2 block3)
@@ -34,6 +34,7 @@
     (blocked block5 block8)
     (blocked block6 block9)
     (door block5 block8)
+    (type_door key)
 )
 
 (:goal (and

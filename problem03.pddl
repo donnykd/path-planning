@@ -32,6 +32,7 @@
     (free block8)
     (free block9)
     (locked chest)
+    (type_chest key)
 )
 
 (:goal (and

@@ -25,6 +25,9 @@
     (door ?x - location ?y - location)
     ;used to open door
     (in_door ?k - item)
+    ;checks what type key
+    (type_door ?k - item)
+    (type_chest ?k - item)
 ) 
 
 ;move from one block to another
@@ -166,6 +169,7 @@
         (located ?c ?x)
         (locked ?c)
         (located ?e ?y)
+        (type_chest ?k)
         ;allows flexibility in init to only declare connection once
         (or
             (connected ?x ?y)
@@ -186,6 +190,7 @@
     :precondition (and 
         (located ?e ?x)
         (stored ?e ?k)
+        (type_door ?k)
         ;if access between 2 blocks is blocked and there is a door
         (or
             (door ?x ?y)
