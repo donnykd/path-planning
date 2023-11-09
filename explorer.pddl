@@ -186,6 +186,7 @@
     :precondition (and 
         (located ?e ?x)
         (stored ?e ?k)
+        ;if access between 2 blocks is blocked and there is a door
         (or
             (door ?x ?y)
             (door ?y ?x)
@@ -194,6 +195,7 @@
             (blocked ?x ?y)
             (blocked ?y ?x)
         )
+        ;key not in door
         (not(in_door ?k))
 
     )
@@ -205,6 +207,44 @@
     )
 )
 
+;remove key
+(:action remove_key
+    :parameters (?e - explorer ?x - location ?y - location
+         ?k - item)
+    :precondition (and 
+        (located ?e ?x)
+        (or
+            (door ?x ?y)
+            (door ?y ?x)
+        )
+        (in_door ?k)
+    )
+    :effect (and 
+        (not(in_door ?k))
+        (stored ?e ?k)
+    )
+)
+
+
+;lock door
+(:action lock
+    :parameters (?e - explorer ?x - location ?y - location
+         ?k - item)
+    :precondition (and 
+        (stored ?e ?k)
+        (located ?e ?x)
+        (or
+            (door ?x ?y)
+            (door ?y ?x)
+        )
+        (not(in_door ?k))
+    )
+    :effect (and 
+        (not (stored ?e ?k))
+        (in_door ?k)
+        (blocked ?x ?y)
+    )
+)
 
 
     

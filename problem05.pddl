@@ -37,6 +37,7 @@
 )
 
 (:goal (and
+    (blocked block5 block8)
     (located player block1)
 ))
 )
