@@ -2,32 +2,34 @@
 (:requirements :strips :negative-preconditions
     :typing :disjunctive-preconditions)
 
-(:types location item entity - object
+(:types location tools entity ladder - object
     explorer box - entity
     chest - box
+    key ladder - tools
 )
 
 (:predicates 
     ;Player or box/chest on a block
     (located ?i - entity ?x - location)
     ;certain item is on a block
-    (on ?k - item ?x - location)
+    (on ?t - tools ?x - location)
     (connected ?x - location ?y - location)
+    (above ?x - location ?y - location)
     ;checks if there isnt anyone occupying a block
     (free ?x - location)
     ;either a chest or player is holding a key
-    (stored ?i - entity ?k - item)
-    (picked ?k - item)
+    (stored ?i - entity ?k - key)
+    (picked ?k - key)
     (locked ?c - chest)
     ;no direct access between both location
     (blocked ?x - location ?y - location)
     ;similar to blocked but can be opened
     (door ?x - location ?y - location)
     ;used to open door
-    (in_door ?k - item)
+    (in_door ?k - key)
     ;checks what type key
-    (type_door ?k - item)
-    (type_chest ?k - item)
+    (type_door ?k - key)
+    (type_chest ?k - key)
 ) 
 
 ;move from one block to another
@@ -53,9 +55,9 @@
     )
 )
 
-;pick up item from currently located block
+;pick up key from currently located block
 (:action pick_up
-    :parameters (?e - explorer ?k - item ?x - location)
+    :parameters (?e - explorer ?k - key ?x - location)
     :precondition (and
         (located ?e ?x)
         (on ?k ?x)
@@ -138,7 +140,7 @@
 
 ;interaction between 2 explorers to give key to another
 (:action give
-    :parameters (?e - explorer ?p - explorer ?k - item 
+    :parameters (?e - explorer ?p - explorer ?k - key 
         ?x - location ?y - location)
     :precondition (and 
         (stored ?e ?k)
@@ -163,12 +165,13 @@
 
 ;open chest
 (:action open
-    :parameters (?e - explorer ?k - item ?x - location 
+    :parameters (?e - explorer ?k - key ?x - location 
         ?y - location    ?c - chest)
     :precondition (and 
         (located ?c ?x)
         (locked ?c)
         (located ?e ?y)
+        ;key type chest
         (type_chest ?k)
         ;allows flexibility in init to only declare connection once
         (or
@@ -186,10 +189,11 @@
 ;unlock door
 (:action unlock
     :parameters (?e - explorer ?x - location ?y - location
-         ?k - item)
+         ?k - key)
     :precondition (and 
         (located ?e ?x)
         (stored ?e ?k)
+        ;key type door
         (type_door ?k)
         ;if access between 2 blocks is blocked and there is a door
         (or
@@ -215,7 +219,7 @@
 ;remove key
 (:action remove_key
     :parameters (?e - explorer ?x - location ?y - location
-         ?k - item)
+         ?k - key)
     :precondition (and 
         (located ?e ?x)
         (or
@@ -234,7 +238,7 @@
 ;lock door
 (:action lock
     :parameters (?e - explorer ?x - location ?y - location
-         ?k - item)
+         ?k - key)
     :precondition (and 
         (stored ?e ?k)
         (located ?e ?x)
@@ -251,6 +255,29 @@
     )
 )
 
+(:action climb
+    :parameters (?e - explorer ?x - location ?y - location
+        ?l - ladder
+    )
+    :precondition (and 
+        (or
+            (on ?l ?x)
+            (on ?l ?y)
+        )
+        (located ?e ?x)
+        (free ?y)
+        ;either above or below
+        (or
+            (above ?y ?x)
+            (above ?x ?y)
+        )
+    )
+    :effect (and 
+        (located ?e ?y)
+        (not(located ?e ?x))
+        (free ?x)
+    )
+)
 
     
 
