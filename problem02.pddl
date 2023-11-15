@@ -1,4 +1,8 @@
-(define (problem paths) (:domain explorer)
+;;;Problem initially made to test the traversal of 2 players between blocks,
+;;;became more complex with the addition of extra actions and predicate.
+;;;Problem now checks the traversal of 2 players with a wall inbetween them,
+;;;a passageway and a chair blocking the way.
+(define (problem paths_extended) (:domain explorer)
 (:objects
     player1 player2 - explorer
     block1 block2 block3 block4
@@ -12,6 +16,7 @@
     (located player1 block1)
     (located player2 block16)
     (located chair block11)
+    ;defining connectivity between blocks for player to go through
     (connected block1 block2)
     (connected block2 block3)
     (connected block3 block4)
@@ -40,6 +45,7 @@
     (blocked block5 block9)
     (blocked block6 block10)
     (blocked block8 block12)
+    ;all blocks free except ones occupied by an entity
     (free block2)
     (free block3)
     (free block4)
