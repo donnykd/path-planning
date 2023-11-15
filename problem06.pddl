@@ -12,6 +12,8 @@
 )
 
 (:init
+    (= (cost) 0)
+    ;definining locations
     (located player block1_1)
     (connected block1_1 block1_2)
     (connected block1_1 block1_4)

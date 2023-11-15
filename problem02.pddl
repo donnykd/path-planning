@@ -13,6 +13,8 @@
 )
 
 (:init
+    (= (cost) 0)
+    ;definining locations
     (located player1 block1)
     (located player2 block16)
     (located chair block11)

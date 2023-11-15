@@ -11,6 +11,7 @@
 )
 
 (:init
+    (= (cost) 0)
     ;definining locations
     (located player block1)
     (on key block9)
@@ -43,6 +44,6 @@
 )
 
 (:goal (and
-    (stored player trophy)
+    (on trophy block1)
 ))
 )

@@ -9,6 +9,8 @@
 )
 
 (:init
+    (= (cost) 0)
+    ;definining locations
     (located player block1)
     ;defining connectivity between blocks for player to go through
     (connected block1 block2)

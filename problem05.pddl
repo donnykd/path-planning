@@ -8,6 +8,8 @@
 )
 
 (:init
+    (= (cost) 0)
+    ;definining locations
     (located player block8)
     (on key block9)
     (connected block1 block2)

@@ -9,6 +9,8 @@
 )
 
 (:init
+    (= (cost) 0)
+    ;definining locations
     (located player1 block5)
     (located player2 block6)
     (on key block9)

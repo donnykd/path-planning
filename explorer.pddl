@@ -1,12 +1,18 @@
 (define (domain explorer)
 (:requirements :strips :negative-preconditions
-    :typing :disjunctive-preconditions)
+    :typing :disjunctive-preconditions :fluents
+    :action-costs
+)
 
 (:types location item entity - object
     explorer box - entity
     chest - box
     trophy tools - item
     key ladder - tools
+)
+
+(:functions 
+    (cost)
 )
 
 (:predicates 
@@ -19,8 +25,7 @@
     ;checks if there isnt anyone occupying a block
     (free ?x - location)
     ;either a chest or player is holding a key
-    (stored ?i - entity ?t - item)
-    (picked ?i - item)
+    (stored ?e - entity ?i - item)
     (locked ?c - chest)
     ;no direct access between both location
     (blocked ?x - location ?y - location)
@@ -53,6 +58,8 @@
         (not(located ?e ?x))
         (free ?x)
         (not(free ?y))
+        ;cost amount
+        (increase (cost) 3)
     )
 )
 
@@ -65,7 +72,8 @@
      )
     :effect (and
         (stored ?e ?i)
-        (picked ?i)
+        ;cost amount
+        (increase (cost) 1)
      )
 )
 
@@ -101,6 +109,8 @@
         (not(located ?e ?y))
         (free ?x)
         (not(free ?z))
+        ;cost amount
+        (increase (cost) 6)
     )
 )
 
@@ -136,6 +146,8 @@
         (not(located ?e ?y))
         (free ?y)
         (not(free ?z))
+        ;cost amount
+        (increase (cost) 6)
     )
 )
 
@@ -161,6 +173,8 @@
     :effect (and 
         (not(stored ?e ?i))
         (stored ?p ?i)
+        ;cost amount
+        (increase (cost) 3)
     )
 )
 
@@ -184,6 +198,8 @@
     :effect (and 
         (not(locked ?c))
         (not(stored ?e ?k))
+        ;cost amount
+        (increase (cost) 2)
     )
 )
 
@@ -214,6 +230,8 @@
         (in_door ?k)
         (not (blocked ?x ?y))
         (not (blocked ?y ?x))
+        ;cost amount
+        (increase (cost) 3)
     )
 )
 
@@ -232,6 +250,8 @@
     :effect (and 
         (not(in_door ?k))
         (stored ?e ?k)
+        ;cost amount
+        (increase (cost) 2)
     )
 )
 
@@ -253,6 +273,8 @@
         (not (stored ?e ?k))
         (in_door ?k)
         (blocked ?x ?y)
+        ;cost amount
+        (increase (cost) 2)
     )
 )
 
@@ -277,6 +299,8 @@
         (located ?e ?y)
         (not(located ?e ?x))
         (free ?x)
+        ;cost amount
+        (increase (cost) 5)
     )
 )
 
@@ -291,9 +315,24 @@
     :effect (and 
         (not(stored ?c ?i))
         (stored ?e ?i)
+        ;cost amount
+        (increase (cost) 1)
     )
 )
 
-   
+(:action place_down
+    :parameters (?e - explorer ?i - item ?x - location)
+    :precondition (and 
+        (located ?e ?x)
+        (stored ?e ?i)
+    )
+    :effect (and 
+        (not(stored ?e ?i))
+        (on ?i ?x)
+        ;cost amount
+        (increase (cost) 1)
+    )
+)
+
 
 )
