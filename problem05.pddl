@@ -1,3 +1,4 @@
+;;;Problem checks the interactions with doors and blocked terrain
 (define (problem door-interactions) (:domain explorer)
 (:objects 
     player - explorer
@@ -12,6 +13,8 @@
     ;definining locations
     (located player block8)
     (on key block9)
+    (door block5 block8)
+    ;defining connectivity between blocks for player to go through
     (connected block1 block2)
     (connected block1 block4)
     (connected block2 block3)
@@ -24,6 +27,10 @@
     (connected block6 block9)
     (connected block7 block8)
     (connected block8 block9)
+    (blocked block4 block7)
+    (blocked block5 block8)
+    (blocked block6 block9)
+    ;all blocks free except ones occupied by an entity
     (free block1)
     (free block2)
     (free block3)
@@ -32,10 +39,7 @@
     (free block6)
     (free block7)
     (free block9)
-    (blocked block4 block7)
-    (blocked block5 block8)
-    (blocked block6 block9)
-    (door block5 block8)
+    ;item properties
     (type_door key)
 )
 

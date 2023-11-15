@@ -1,3 +1,4 @@
+;;;Problem defined to test the dimensionality of blocks and how to traverse through them
 (define (problem ladders) (:domain explorer)
 (:objects 
     player - explorer
@@ -15,6 +16,9 @@
     (= (cost) 0)
     ;definining locations
     (located player block1_1)
+    (on key block2_9)
+    (on ladder block2_5)
+    ;defining connectivity between blocks for player to go through
     (connected block1_1 block1_2)
     (connected block1_1 block1_4)
     (connected block1_2 block1_3)
@@ -39,6 +43,8 @@
     (connected block2_6 block2_9)
     (connected block2_7 block2_8)
     (connected block2_8 block2_9)
+    (above block2_5 block1_5)
+    ;all blocks free except ones occupied by an entity
     (free block1_2)
     (free block1_3)
     (free block1_4)
@@ -56,9 +62,6 @@
     (free block2_7)
     (free block2_8)
     (free block2_9)
-    (above block2_5 block1_5)
-    (on key block2_9)
-    (on ladder block2_5)
 )
 
 (:goal (and

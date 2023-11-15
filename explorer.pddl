@@ -320,6 +320,7 @@
     )
 )
 
+;put item stored down
 (:action place_down
     :parameters (?e - explorer ?i - item ?x - location)
     :precondition (and 
