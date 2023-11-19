@@ -3,22 +3,25 @@
   "defaultOptions": "",
   "cases": [
     {
+      "problem": "problem01.pddl"
+    },
+    {
+      "problem": "problem02.pddl"
+    },
+    {
       "problem": "problem03.pddl"
     },
     {
       "problem": "problem04.pddl"
     },
     {
-      "problem": "problem02.pddl"
-    },
-    {
-      "problem": "problem01.pddl"
+      "problem": "problem05.pddl"
     },
     {
       "problem": "problem06.pddl"
     },
     {
-      "problem": "problem05.pddl"
+      "problem": "problem07.pddl"
     }
   ]
 }

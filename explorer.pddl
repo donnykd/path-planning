@@ -32,10 +32,12 @@
     ;similar to blocked but can be opened
     (door ?x - location ?y - location)
     ;used to open door
-    (in_door ?k - key)
+    (in_door ?k - key ?x - location ?y - location)
     ;checks what type key
     (type_door ?k - key)
     (type_chest ?k - key)
+    ;cannot move from current location
+    (restricted ?e - explorer)
 ) 
 
 ;move from one block to another
@@ -52,6 +54,7 @@
         ;makes sure there is direct access
         (not(blocked ?x ?y))
         (not(blocked ?y ?x))
+        (not(restricted ?e))
     )
     :effect (and 
         (located ?e ?y)
@@ -79,12 +82,13 @@
 
 ;pull box
 (:action pull
-    :parameters (?e - explorer ?b - box ?x - location
-         ?y - location ?z - location)
+    :parameters (?e - explorer ?b - box ?z - location
+         ?y - location ?x - location)
     :precondition (and 
         (located ?b ?x)
         (located ?e ?y)
         (free ?z)
+        (not(restricted ?e))
         ;allows flexibility in init to only declare connection once
         ;explorer and box connected
         (or
@@ -122,6 +126,7 @@
         (located ?b ?x)
         (located ?e ?y)
         (free ?z)
+        (not(restricted ?e))
         ;allows flexibility in init to only declare connection once
         ;explorer and box connected
         (or
@@ -193,6 +198,8 @@
             (connected ?x ?y)
             (connected ?y ?x)
         )
+        (not(blocked ?x ?y))
+        (not(blocked ?y ?x))
         (stored ?e ?k)
     )
     :effect (and 
@@ -222,12 +229,15 @@
             (blocked ?y ?x)
         )
         ;key not in door
-        (not(in_door ?k))
+        (or
+          (not(in_door ?k ?x ?y))
+          (not(in_door ?k ?y ?x))
+        )
 
     )
     :effect (and 
         (not (stored ?e ?k))
-        (in_door ?k)
+        (in_door ?k ?x ?y)
         (not (blocked ?x ?y))
         (not (blocked ?y ?x))
         ;cost amount
@@ -240,15 +250,20 @@
     :parameters (?e - explorer ?k - key ?x - location 
         ?y - location)
     :precondition (and 
+        (type_door ?k)
         (located ?e ?x)
         (or
             (door ?x ?y)
             (door ?y ?x)
         )
-        (in_door ?k)
+        (or
+        (in_door ?k ?x ?y)
+        (in_door ?k ?y ?x)
+        )
     )
     :effect (and 
-        (not(in_door ?k))
+        (not(in_door ?k ?x ?y))
+        (not(in_door ?k ?y ?x))
         (stored ?e ?k)
         ;cost amount
         (increase (cost) 2)
@@ -263,15 +278,20 @@
     :precondition (and 
         (stored ?e ?k)
         (located ?e ?x)
+        (type_door ?k)
         (or
             (door ?x ?y)
             (door ?y ?x)
         )
-        (not(in_door ?k))
+        ;key not in door
+        (or
+          (not(in_door ?k ?x ?y))
+          (not(in_door ?k ?y ?x))
+        )
     )
     :effect (and 
         (not (stored ?e ?k))
-        (in_door ?k)
+        (in_door ?k ?x ?y)
         (blocked ?x ?y)
         ;cost amount
         (increase (cost) 2)
@@ -289,6 +309,7 @@
         )
         (located ?e ?x)
         (free ?y)
+        (not(restricted ?e))
         ;either above or below
         (or
             (above ?y ?x)
@@ -299,6 +320,7 @@
         (located ?e ?y)
         (not(located ?e ?x))
         (free ?x)
+        (not(free ?y))
         ;cost amount
         (increase (cost) 5)
     )
@@ -306,11 +328,19 @@
 
 ;pick up item from chest
 (:action claim
-    :parameters (?e - explorer ?c - chest ?i - item)
+    :parameters (?e - explorer ?c - chest ?i - item
+        ?x - location ?y - location
+    )
     :precondition (and 
         ;chest is storing item and open
         (not(locked ?c))
         (stored ?c ?i)
+        (located ?c ?x)
+        (located ?e ?y)
+        (or
+            (connected ?x ?y)
+            (connected ?y ?x)
+        )
     )
     :effect (and 
         (not(stored ?c ?i))
