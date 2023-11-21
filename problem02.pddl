@@ -67,4 +67,5 @@
     (located player1 block16)
     (located player2 block1)
 ))
+(:metric minimize (cost))
 )

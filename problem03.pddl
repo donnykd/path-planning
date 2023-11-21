@@ -46,4 +46,5 @@
 (:goal (and
     (on trophy block1)
 ))
+(:metric minimize (cost))
 )

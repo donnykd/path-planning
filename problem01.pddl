@@ -39,4 +39,5 @@
 (:goal (and
     (located player block9)
 ))
+(:metric minimize (cost))
 )

@@ -157,6 +157,6 @@
     (on trophy block1_6)
 ))
 
-;un-comment the following line if metric is needed
-;(:metric minimize (???))
+
+(:metric minimize (cost))
 )

@@ -47,4 +47,5 @@
 (:goal (and
     (not(locked chest))
 ))
+(:metric minimize (cost))
 )

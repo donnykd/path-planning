@@ -47,4 +47,5 @@
     (blocked block5 block8)
     (located player block1)
 ))
+(:metric minimize (cost))
 )

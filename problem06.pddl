@@ -68,5 +68,6 @@
     (stored player key)
     (located player block1_1)
 ))
+(:metric minimize (cost))
 
 )
