@@ -11,7 +11,7 @@
 )
 
 (:init
-    (= (cost) 0)
+    (= (total-cost) 0)
     ;definining locations
     (located player block1)
     (on key block9)
@@ -46,5 +46,5 @@
 (:goal (and
     (on trophy block1)
 ))
-(:metric minimize (cost))
+(:metric minimize (total-cost))
 )

@@ -9,7 +9,7 @@
 )
 
 (:init
-    (= (cost) 0)
+    (= (total-cost) 0)
     ;definining locations
     (located player block1)
     ;defining connectivity between blocks for player to go through
@@ -39,5 +39,5 @@
 (:goal (and
     (located player block9)
 ))
-(:metric minimize (cost))
+(:metric minimize (total-cost))
 )

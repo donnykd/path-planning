@@ -21,7 +21,7 @@
 )
 
 (:init
-    (= (cost) 0)
+    (= (total-cost) 0)
     ;definining locations
     (located player block1_1)
     (located npc block2_2)
@@ -158,5 +158,5 @@
 ))
 
 
-(:metric minimize (cost))
+(:metric minimize (total-cost))
 )

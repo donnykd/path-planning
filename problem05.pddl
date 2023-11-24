@@ -9,7 +9,7 @@
 )
 
 (:init
-    (= (cost) 0)
+    (= (total-cost) 0)
     ;definining locations
     (located player block8)
     (on key block9)
@@ -47,5 +47,5 @@
     (blocked block5 block8)
     (located player block1)
 ))
-(:metric minimize (cost))
+(:metric minimize (total-cost))
 )

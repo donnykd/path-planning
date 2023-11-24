@@ -12,7 +12,7 @@
 )
 
 (:init
-    (= (cost) 0)
+    (= (total-cost) 0)
     ;definining locations
     (located player1 block2)
     (located player2 block3)
@@ -47,5 +47,5 @@
 (:goal (and
     (not(locked chest))
 ))
-(:metric minimize (cost))
+(:metric minimize (total-cost))
 )

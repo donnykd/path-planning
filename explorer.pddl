@@ -1,7 +1,6 @@
 (define (domain explorer)
 (:requirements :strips :negative-preconditions
-    :typing :disjunctive-preconditions :fluents
-    :action-costs
+    :typing :disjunctive-preconditions :action-costs
 )
 
 (:types location item entity - object
@@ -12,7 +11,7 @@
 )
 
 (:functions 
-    (cost)
+    (total-cost)
 )
 
 (:predicates 
@@ -62,7 +61,7 @@
         (free ?x)
         (not(free ?y))
         ;cost amount
-        (increase (cost) 3)
+        (increase (total-cost) 3)
     )
 )
 
@@ -76,7 +75,7 @@
     :effect (and
         (stored ?e ?i)
         ;cost amount
-        (increase (cost) 1)
+        (increase (total-cost) 1)
      )
 )
 
@@ -114,7 +113,7 @@
         (free ?x)
         (not(free ?z))
         ;cost amount
-        (increase (cost) 6)
+        (increase (total-cost) 6)
     )
 )
 
@@ -152,7 +151,7 @@
         (free ?y)
         (not(free ?z))
         ;cost amount
-        (increase (cost) 6)
+        (increase (total-cost) 6)
     )
 )
 
@@ -179,7 +178,7 @@
         (not(stored ?e ?i))
         (stored ?p ?i)
         ;cost amount
-        (increase (cost) 3)
+        (increase (total-cost) 3)
     )
 )
 
@@ -206,7 +205,7 @@
         (not(locked ?c))
         (not(stored ?e ?k))
         ;cost amount
-        (increase (cost) 2)
+        (increase (total-cost) 2)
     )
 )
 
@@ -241,7 +240,7 @@
         (not (blocked ?x ?y))
         (not (blocked ?y ?x))
         ;cost amount
-        (increase (cost) 3)
+        (increase (total-cost) 3)
     )
 )
 
@@ -266,7 +265,7 @@
         (not(in_door ?k ?y ?x))
         (stored ?e ?k)
         ;cost amount
-        (increase (cost) 2)
+        (increase (total-cost) 2)
     )
 )
 
@@ -294,7 +293,7 @@
         (in_door ?k ?x ?y)
         (blocked ?x ?y)
         ;cost amount
-        (increase (cost) 2)
+        (increase (total-cost) 2)
     )
 )
 
@@ -322,7 +321,7 @@
         (free ?x)
         (not(free ?y))
         ;cost amount
-        (increase (cost) 5)
+        (increase (total-cost) 5)
     )
 )
 
@@ -346,7 +345,7 @@
         (not(stored ?c ?i))
         (stored ?e ?i)
         ;cost amount
-        (increase (cost) 1)
+        (increase (total-cost) 1)
     )
 )
 
@@ -361,7 +360,7 @@
         (not(stored ?e ?i))
         (on ?i ?x)
         ;cost amount
-        (increase (cost) 1)
+        (increase (total-cost) 1)
     )
 )
 
