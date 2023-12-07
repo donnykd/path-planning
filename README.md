@@ -1,5 +1,10 @@
 # Final Year Project
 
-This repository has been created to store your final year project.
+This is Galid Mahamed's Work on AI planning
 
-You may edit it as you like, but please do not remove the default topics or the project members list. These need to stay as currently defined in order for your supervisor to be able to find your project.
+To run a problem file open it, press alt+p on a problem file and if prompted to enter the domain file enter explorer.pddl. 
+If not there will be a prompt to specify planner, use the default planner. The planner output will appear within the 10 seconds limit.
+
+An unlisted youtube video describing the project so far: https://youtu.be/_5tpGtTJB4o
+
+Folder called downward cloned from the github repo https://github.com/aibasel/downward. Free License.

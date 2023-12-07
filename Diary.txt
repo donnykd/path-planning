@@ -17,3 +17,5 @@
 19/11/23 ~ Week 8: I have scrapped the idea of using python to create a plan, due to me feeling it being less efficient with my time at this point in time. I have indeed created a plan that covers every part of my explorer so far, which I have thought meticulously through. Realised that it there were some oversights with my actions so I fixed them. I also tried to install FastDownward to start testing for optimal solutions for my plans but currently running into many errors both on nomachine and windows. Will contact my supervisor about it before starting my interim report!
 
 24/11/23 ~ Week 9: I have contacted my supervisor, which he gave me a detailed answer on how to run it on nomachine. I have started testing by minimising costs with fastdownward and have also started writing my interim report.
+
+31/11/23 ~ Week 10: Completed Interim report, completed any tests, only have presentation to do and create the video. 

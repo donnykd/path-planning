@@ -74,6 +74,7 @@
      )
     :effect (and
         (stored ?e ?i)
+        (not(on ?i ?x))
         ;cost amount
         (increase (total-cost) 1)
      )
@@ -192,6 +193,7 @@
         (located ?e ?y)
         ;key type chest
         (type_chest ?k)
+        (stored ?e ?k)
         ;allows flexibility in init to only declare connection once
         (or
             (connected ?x ?y)
@@ -199,7 +201,6 @@
         )
         (not(blocked ?x ?y))
         (not(blocked ?y ?x))
-        (stored ?e ?k)
     )
     :effect (and 
         (not(locked ?c))
