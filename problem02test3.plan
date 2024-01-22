@@ -1,0 +1,18 @@
+;;!domain: explorer
+;;!problem: paths_extended
+
+0.00000: (move player1 block1 block5)
+0.00100: (move player2 block16 block12)
+0.00200: (move player1 block5 block6)
+0.00300: (move player1 block6 block7)
+0.00400: (push player1 chair block7 block11 block10)
+0.00500: (move player1 block11 block15)
+0.00600: (move player1 block15 block16)
+0.00700: (move player2 block12 block11)
+0.00800: (move player2 block11 block7)
+0.00900: (move player2 block7 block6)
+0.01000: (move player2 block6 block5)
+0.01100: (move player2 block5 block1)
+
+; Makespan: 0.011000000000000003
+; Metric: 0.011000000000000003
