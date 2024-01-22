@@ -1,0 +1,17 @@
+;;!domain: explorer
+;;!problem: ladders
+
+0.00000: (move player block1_1 block1_2)
+0.00100: (move player block1_2 block1_5)
+0.00200: (climb player ladder block1_5 block2_5)
+0.00300: (move player block2_5 block2_6)
+0.00400: (move player block2_6 block2_9)
+0.00500: (pick_up player key block2_9)
+0.00600: (move player block2_9 block2_6)
+0.00700: (move player block2_6 block2_5)
+0.00800: (climb player ladder block2_5 block1_5)
+0.00900: (move player block1_5 block1_2)
+0.01000: (move player block1_2 block1_1)
+
+; Makespan: 0.010000000000000002
+; Metric: 0.010000000000000002

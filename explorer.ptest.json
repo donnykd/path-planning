@@ -40,10 +40,18 @@
       ]
     },
     {
-      "problem": "problem06.pddl"
+      "problem": "problem06.pddl",
+      "expectedPlans": [
+        "problem06test1.plan",
+        "problem06test2.plan"
+      ]
     },
     {
-      "problem": "problem07.pddl"
+      "problem": "problem07.pddl",
+      "expectedPlans": [
+        "problem07test1.plan",
+        "problem07test2.plan"
+      ]
     }
   ]
 }
