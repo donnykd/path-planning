@@ -1,0 +1,11 @@
+;;!domain: explorer
+;;!problem: give_item
+
+0.00000: (pick_up player8 key block9)
+0.00100: (give player8 player5 key block9 block6)
+0.00200: (give player5 player2 key block6 block3)
+0.00300: (give player2 player1 key block3 block2)
+0.00400: (open player1 key chest block1 block2)
+
+; Makespan: 0.004
+; Metric: 0.004

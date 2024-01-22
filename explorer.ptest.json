@@ -22,7 +22,11 @@
       ]
     },
     {
-      "problem": "problem04.pddl"
+      "problem": "problem04.pddl",
+      "expectedPlans": [
+        "problem04test1.plan", "problem04test2.plan",
+        "problem04test3.plan"
+      ]
     },
     {
       "problem": "problem05.pddl"
