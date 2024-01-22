@@ -5,31 +5,39 @@
     {
       "problem": "problem01.pddl",
       "expectedPlans": [
-        "problem01test1.plan", "problem01test2.plan"
+        "problem01test1.plan",
+        "problem01test2.plan"
       ]
     },
     {
       "problem": "problem02.pddl",
       "expectedPlans": [
-        "problem02test1.plan", "problem02test2.plan",
+        "problem02test1.plan",
+        "problem02test2.plan",
         "problem02test3.plan"
       ]
     },
     {
       "problem": "problem03.pddl",
       "expectedPlans": [
-        "problem03test1.plan", "problem03test2.plan"
+        "problem03test1.plan",
+        "problem03test2.plan"
       ]
     },
     {
       "problem": "problem04.pddl",
       "expectedPlans": [
-        "problem04test1.plan", "problem04test2.plan",
+        "problem04test1.plan",
+        "problem04test2.plan",
         "problem04test3.plan"
       ]
     },
     {
-      "problem": "problem05.pddl"
+      "problem": "problem05.pddl",
+      "expectedPlans": [
+        "problem05test1.plan",
+        "problem05test2.plan"
+      ]
     },
     {
       "problem": "problem06.pddl"

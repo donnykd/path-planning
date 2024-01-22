@@ -1,0 +1,15 @@
+;;!domain: explorer
+;;!problem: door-interactions
+
+0.00000: (move player block8 block9)
+0.00100: (pick_up player key block9)
+0.00200: (move player block9 block8)
+0.00300: (unlock player key block8 block5)
+0.00400: (move player block8 block5)
+0.00500: (remove_key player key block5 block8)
+0.00600: (lock player key block5 block8)
+0.00700: (move player block5 block2)
+0.00800: (move player block2 block1)
+
+; Makespan: 0.008
+; Metric: 0.008
