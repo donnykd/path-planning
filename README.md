@@ -1,9 +1,11 @@
 # Final Year Project
 
-This is Galid Mahamed's Work on AI planning
+## This is Galid Mahamed's Work on AI planning
 
-To run a problem file open it, press alt+p on a problem file and if prompted to enter the domain file enter explorer.pddl. 
-If not there will be a prompt to specify planner, use the default planner. The planner output will appear within the 10 seconds limit.
+### Instructions on how to run the PDDL files:
+
+1) 
+
 
 An unlisted youtube video describing the project so far: https://youtu.be/_5tpGtTJB4o
 

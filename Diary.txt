@@ -1,3 +1,5 @@
+Term 1:
+
 28/09/23 ~ Week 1: This week I have dabbled into learning pddl, chose a topic to model and write my plan with, which was aviation planning related, and I have finished my first draft abstract.
 
 04/10/23 ~ Week 2: I have changed topics from aviation to exploration planning, researched about exploration planning, rewrote the abstract and finished the project plan.
@@ -19,3 +21,7 @@
 24/11/23 ~ Week 9: I have contacted my supervisor, which he gave me a detailed answer on how to run it on nomachine. I have started testing by minimising costs with fastdownward and have also started writing my interim report.
 
 31/11/23 ~ Week 10: Completed Interim report, completed any tests, only have presentation to do and create the video. 
+
+Term 2:
+
+20/01/24 ~ Week 1: I received my interim results this week, which I have started implementing some of the changes mentioned in the feedback. I have started creating unit tests for past problems, looked into problem generators using templates and updated my README file. I have booked a meeting with my supervisor next week thursday to get a start with creating domain specific heuristics, but for now my plan is to incorporate all the feedback I have received as well as add more content with the problem generator.
