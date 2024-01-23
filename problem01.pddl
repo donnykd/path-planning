@@ -1,43 +1,46 @@
+;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+
 ;;;problem to test and try out the move action
 ;;;combination of old move actions; move_left, move_right, etc.
 (define (problem paths) (:domain explorer)
 (:objects
-    player - explorer
-    block1 block2 block3
-    block4 block5 block6 
-    block7 block8 block9 - location
+    {{data.explorer}} - explorer
+
+    {% for block in data.blocks %}{% if not loop.last %}{{ block }}
+    {% else %}{{ block }} - location {% endif %}
+    {% endfor %}
 )
 
 (:init
     (= (total-cost) 0)
     ;definining locations
-    (located player block1)
+    (located {{data.explorer}} block1)
     ;defining connectivity between blocks for player to go through
-    (connected block1 block2)
-    (connected block1 block4)
-    (connected block2 block3)
-    (connected block2 block5)
-    (connected block3 block6)
-    (connected block4 block5)
-    (connected block4 block7)
-    (connected block5 block6)
-    (connected block5 block8)
-    (connected block6 block9)
-    (connected block7 block8)
-    (connected block8 block9)
+    (connected {{data.blocks[0]}} {{data.blocks[1]}})
+    (connected {{data.blocks[0]}} {{data.blocks[3]}})
+    (connected {{data.blocks[1]}} {{data.blocks[2]}})
+    (connected {{data.blocks[1]}} {{data.blocks[4]}})
+    (connected {{data.blocks[2]}} {{data.blocks[5]}})
+    (connected {{data.blocks[3]}} {{data.blocks[4]}})
+    (connected {{data.blocks[3]}} {{data.blocks[6]}})
+    (connected {{data.blocks[4]}} {{data.blocks[5]}})
+    (connected {{data.blocks[4]}} {{data.blocks[7]}})
+    (connected {{data.blocks[5]}} {{data.blocks[8]}})
+    (connected {{data.blocks[6]}} {{data.blocks[7]}})
+    (connected {{data.blocks[7]}} {{data.blocks[8]}})
     ;all blocks free except ones occupied by an entity
-    (free block2)
-    (free block3)
-    (free block4)
-    (free block5)
-    (free block6)
-    (free block7)
-    (free block8)
-    (free block9)
+    (free {{data.blocks[1]}})
+    (free {{data.blocks[2]}})
+    (free {{data.blocks[3]}})
+    (free {{data.blocks[4]}})
+    (free {{data.blocks[5]}})
+    (free {{data.blocks[6]}})
+    (free {{data.blocks[7]}})
+    (free {{data.blocks[8]}})
 )
 
 (:goal (and
-    (located player block9)
+    (located player {{data.blocks[8]}})
 ))
 (:metric minimize (total-cost))
 )

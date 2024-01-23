@@ -1,7 +1,7 @@
 ;;!domain: explorer
 ;;!problem: paths
 
-(MOVE PLAYER BLOCK1 BLOCK4)
-(MOVE PLAYER BLOCK4 BLOCK7)
-(MOVE PLAYER BLOCK7 BLOCK8)
-(MOVE PLAYER BLOCK8 BLOCK9)
+(move player block1 block4)
+(move player block4 block7)
+(move player block7 block8)
+(move player block8 block9)

@@ -9,7 +9,11 @@
         "problem01test2.plan",
         "problem01test3.plan",
         "problem01test4.plan"
-      ]
+      ],
+      "preProcess": {
+        "kind": "jinja2",
+        "data": "case1.json"
+      }
     },
     {
       "problem": "problem02.pddl",
