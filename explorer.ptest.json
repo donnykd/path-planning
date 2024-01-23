@@ -6,7 +6,9 @@
       "problem": "problem01.pddl",
       "expectedPlans": [
         "problem01test1.plan",
-        "problem01test2.plan"
+        "problem01test2.plan",
+        "problem01test3.plan",
+        "problem01test4.plan"
       ]
     },
     {

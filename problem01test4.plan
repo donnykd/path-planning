@@ -1,0 +1,10 @@
+;;!domain: explorer
+;;!problem: paths
+
+0.00000: (move player block1 block2)
+0.00100: (move player block2 block3)
+0.00200: (move player block3 block6)
+0.00300: (move player block6 block9)
+
+; Makespan: 0.003
+; Metric: 0.003
