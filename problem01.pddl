@@ -15,28 +15,24 @@
     (= (total-cost) 0)
     ;definining locations
     (located {{data.explorer}} block1)
+
     ;defining connectivity between blocks for player to go through
-    (connected {{data.blocks[0]}} {{data.blocks[1]}})
-    (connected {{data.blocks[0]}} {{data.blocks[3]}})
-    (connected {{data.blocks[1]}} {{data.blocks[2]}})
-    (connected {{data.blocks[1]}} {{data.blocks[4]}})
-    (connected {{data.blocks[2]}} {{data.blocks[5]}})
-    (connected {{data.blocks[3]}} {{data.blocks[4]}})
-    (connected {{data.blocks[3]}} {{data.blocks[6]}})
-    (connected {{data.blocks[4]}} {{data.blocks[5]}})
-    (connected {{data.blocks[4]}} {{data.blocks[7]}})
-    (connected {{data.blocks[5]}} {{data.blocks[8]}})
-    (connected {{data.blocks[6]}} {{data.blocks[7]}})
-    (connected {{data.blocks[7]}} {{data.blocks[8]}})
+    {% for block in data.blocks %} {% if not loop.last %} {% if loop.index == 3 or loop.index == 6 %}
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index+2]}})
+    (connected {{data.blocks[loop.index+2]}} {{data.blocks[loop.index+2]}})
+    {% elif loop.index == 7 or loop.index == 8 %}
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index]}})
+    (connected {{data.blocks[loop.index]}} {{data.blocks[loop.index-1]}})
+    {% else %}
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index]}})
+    (connected {{data.blocks[loop.index]}} {{data.blocks[loop.index-1]}})
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index+2]}})
+    (connected {{data.blocks[loop.index+2]}} {{data.blocks[loop.index-1]}})
+    {%endif%}{%endif%}{%endfor%}
     ;all blocks free except ones occupied by an entity
-    (free {{data.blocks[1]}})
-    (free {{data.blocks[2]}})
-    (free {{data.blocks[3]}})
-    (free {{data.blocks[4]}})
-    (free {{data.blocks[5]}})
-    (free {{data.blocks[6]}})
-    (free {{data.blocks[7]}})
-    (free {{data.blocks[8]}})
+    {% for block in data.blocks %}{% if not loop.first %}
+    (free {{data.blocks[loop.index-1]}})
+    {% endif %}{% endfor %}
 )
 
 (:goal (and
