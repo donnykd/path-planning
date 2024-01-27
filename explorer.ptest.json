@@ -21,8 +21,14 @@
       "expectedPlans": [
         "problem02test1.plan",
         "problem02test2.plan",
-        "problem02test3.plan"
-      ]
+        "problem02test3.plan",
+        "problem02test4.plan",
+        "problem02test5.plan"
+      ],
+      "preProcess": {
+        "kind": "jinja2",
+        "data": "case2.json"
+      }
     },
     {
       "problem": "problem03.pddl",

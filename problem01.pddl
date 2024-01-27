@@ -19,7 +19,7 @@
     ;defining connectivity between blocks for player to go through
     {% for block in data.blocks %} {% if not loop.last %} {% if loop.index == 3 or loop.index == 6 %}
     (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index+2]}})
-    (connected {{data.blocks[loop.index+2]}} {{data.blocks[loop.index+2]}})
+    (connected {{data.blocks[loop.index+2]}} {{data.blocks[loop.index-1]}})
     {% elif loop.index == 7 or loop.index == 8 %}
     (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index]}})
     (connected {{data.blocks[loop.index]}} {{data.blocks[loop.index-1]}})
@@ -31,8 +31,7 @@
     {%endif%}{%endif%}{%endfor%}
     ;all blocks free except ones occupied by an entity
     {% for block in data.blocks %}{% if not loop.first %}
-    (free {{data.blocks[loop.index-1]}})
-    {% endif %}{% endfor %}
+    (free {{data.blocks[loop.index-1]}}){% endif %}{% endfor %}
 )
 
 (:goal (and

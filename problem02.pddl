@@ -1,66 +1,46 @@
+;;!pre-parsing:{type: "jinja2", data: "case2.json"}
+
 ;;;Problem initially made to test the traversal of 2 players between blocks,
 ;;;became more complex with the addition of extra actions and predicate.
 ;;;Problem now checks the traversal of 2 players with a wall inbetween them,
 ;;;a passageway and a chair blocking the way.
 (define (problem paths_extended) (:domain explorer)
 (:objects
-    player1 player2 - explorer
-    block1 block2 block3 block4
-    block5 block6 block7 block8
-    block9 block10 block11 block12
-    block13 block14 block15 block16 - location
-    chair - box
+    {% for explorer in data.explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
+    {% endfor %}
+    {% for block in data.blocks %}{% if not loop.last %}{{ block }}{% else %}{{ block }} - location {% endif %}
+    {% endfor %}
+    {{data.box}} - box
 )
 
 (:init
     (= (total-cost) 0)
+
     ;definining locations
-    (located player1 block1)
-    (located player2 block16)
-    (located chair block11)
+    (located {{data.explorers[0]}} block1)
+    (located {{data.explorers[1]}} block16)
+    (located {{data.box}} block11)
+
     ;defining connectivity between blocks for player to go through
-    (connected block1 block2)
-    (connected block2 block3)
-    (connected block3 block4)
-    (connected block5 block6)
-    (connected block6 block7)
-    (connected block7 block8)
-    (connected block9 block10)
-    (connected block10 block11)
-    (connected block11 block12)
-    (connected block13 block14)
-    (connected block14 block15)
-    (connected block15 block16)
-    (connected block11 block10)
-    (connected block1 block5)
-    (connected block2 block6)
-    (connected block3 block7)
-    (connected block4 block8)
-    (connected block5 block9)
-    (connected block6 block10)
-    (connected block7 block11)
-    (connected block8 block12)
-    (connected block9 block13)
-    (connected block10 block14)
-    (connected block11 block15)
-    (connected block12 block16)
+    {% for block in data.blocks %} {% if not loop.last %} {% if loop.index == 4 or loop.index == 8 or loop.index == 12 %}
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index+3]}})
+    (connected {{data.blocks[loop.index+3]}} {{data.blocks[loop.index-1]}})
+    {% elif loop.index == 13 or loop.index == 14 or loop.index == 15 %}
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index]}})
+    (connected {{data.blocks[loop.index]}} {{data.blocks[loop.index-1]}})
+    {% else %}
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index]}})
+    (connected {{data.blocks[loop.index]}} {{data.blocks[loop.index-1]}})
+    (connected {{data.blocks[loop.index-1]}} {{data.blocks[loop.index+3]}})
+    (connected {{data.blocks[loop.index+3]}} {{data.blocks[loop.index-1]}})
+    {%endif%}{%endif%}{%endfor%}
     (blocked block5 block9)
     (blocked block6 block10)
     (blocked block8 block12)
+
     ;all blocks free except ones occupied by an entity
-    (free block2)
-    (free block3)
-    (free block4)
-    (free block5)
-    (free block6)
-    (free block7)
-    (free block8)
-    (free block9)
-    (free block10)
-    (free block12)
-    (free block13)
-    (free block14)
-    (free block15)
+    {% for block in data.blocks %}{% if loop.index != 1 and loop.index != 16 and loop.index != 11%}
+    (free {{data.blocks[loop.index-1]}}){% endif %}{% endfor %}
 )
 
 (:goal (and
