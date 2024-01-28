@@ -1,13 +1,12 @@
+;;!pre-parsing:{type: "jinja2", data: "case4.json"}
 ;;;Problem defined to test the dimensionality of blocks and how to traverse through them
 (define (problem ladders) (:domain explorer)
 (:objects 
-    player - explorer
-    block1_1 block1_2 block1_3
-    block1_4 block1_5 block1_6 
-    block1_7 block1_8 block1_9
-    block2_1 block2_2 block2_3
-    block2_4 block2_5 block2_6 
-    block2_7 block2_8 block2_9 - location
+    {{data.explorer}} - explorer
+    {% for block in data.first_floor_blocks %}{{ block }} 
+    {% endfor %}
+    {% for block in data.second_floor_blocks %}{% if not loop.last %}{{ block }}{% else %}{{ block }} - location {% endif %}
+    {% endfor %}
     ladder - ladder
     key - key
 )
@@ -15,53 +14,42 @@
 (:init
     (= (total-cost) 0)
     ;definining locations
-    (located player block1_1)
+    (located {{data.explorer}} block1_1)
     (on key block2_9)
     (on ladder block2_5)
+
     ;defining connectivity between blocks for player to go through
-    (connected block1_1 block1_2)
-    (connected block1_1 block1_4)
-    (connected block1_2 block1_3)
-    (connected block1_2 block1_5)
-    (connected block1_3 block1_6)
-    (connected block1_4 block1_5)
-    (connected block1_4 block1_7)
-    (connected block1_5 block1_6)
-    (connected block1_5 block1_8)
-    (connected block1_6 block1_9)
-    (connected block1_7 block1_8)
-    (connected block1_8 block1_9)
-    (connected block2_1 block2_2)
-    (connected block2_1 block2_4)
-    (connected block2_2 block2_3)
-    (connected block2_2 block2_5)
-    (connected block2_3 block2_6)
-    (connected block2_4 block2_5)
-    (connected block2_4 block2_7)
-    (connected block2_5 block2_6)
-    (connected block2_5 block2_8)
-    (connected block2_6 block2_9)
-    (connected block2_7 block2_8)
-    (connected block2_8 block2_9)
+    {% for block in data.first_floor_blocks %} {% if not loop.last %} {% if loop.index == 3 or loop.index == 6 %}
+    (connected {{data.first_floor_blocks[loop.index-1]}} {{data.first_floor_blocks[loop.index+2]}})
+    (connected {{data.first_floor_blocks[loop.index+2]}} {{data.first_floor_blocks[loop.index-1]}})
+    {% elif loop.index == 7 or loop.index == 8 %}
+    (connected {{data.first_floor_blocks[loop.index-1]}} {{data.first_floor_blocks[loop.index]}})
+    (connected {{data.first_floor_blocks[loop.index]}} {{data.first_floor_blocks[loop.index-1]}})
+    {% else %}
+    (connected {{data.first_floor_blocks[loop.index-1]}} {{data.first_floor_blocks[loop.index]}})
+    (connected {{data.first_floor_blocks[loop.index]}} {{data.first_floor_blocks[loop.index-1]}})
+    (connected {{data.first_floor_blocks[loop.index-1]}} {{data.first_floor_blocks[loop.index+2]}})
+    (connected {{data.first_floor_blocks[loop.index+2]}} {{data.first_floor_blocks[loop.index-1]}})
+    {%endif%}{%endif%}{%endfor%}
+    {% for block in data.second_floor_blocks %} {% if not loop.last %} {% if loop.index == 3 or loop.index == 6 %}
+    (connected {{data.second_floor_blocks[loop.index-1]}} {{data.second_floor_blocks[loop.index+2]}})
+    (connected {{data.second_floor_blocks[loop.index+2]}} {{data.second_floor_blocks[loop.index-1]}})
+    {% elif loop.index == 7 or loop.index == 8 %}
+    (connected {{data.second_floor_blocks[loop.index-1]}} {{data.second_floor_blocks[loop.index]}})
+    (connected {{data.second_floor_blocks[loop.index]}} {{data.second_floor_blocks[loop.index-1]}})
+    {% else %}
+    (connected {{data.second_floor_blocks[loop.index-1]}} {{data.second_floor_blocks[loop.index]}})
+    (connected {{data.second_floor_blocks[loop.index]}} {{data.second_floor_blocks[loop.index-1]}})
+    (connected {{data.second_floor_blocks[loop.index-1]}} {{data.second_floor_blocks[loop.index+2]}})
+    (connected {{data.second_floor_blocks[loop.index+2]}} {{data.second_floor_blocks[loop.index-1]}})
+    {%endif%}{%endif%}{%endfor%}
     (above block2_5 block1_5)
+
     ;all blocks free except ones occupied by an entity
-    (free block1_2)
-    (free block1_3)
-    (free block1_4)
-    (free block1_5)
-    (free block1_6)
-    (free block1_7)
-    (free block1_8)
-    (free block1_9)
-    (free block2_1)
-    (free block2_2)
-    (free block2_3)
-    (free block2_4)
-    (free block2_5)
-    (free block2_6)
-    (free block2_7)
-    (free block2_8)
-    (free block2_9)
+    {% for block in data.first_floor_blocks %}{% if loop.index != 1 %}
+    (free {{data.first_floor_blocks[loop.index-1]}}){% endif %}{% endfor %}
+    {% for block in data.second_floor_blocks %}
+    (free {{data.second_floor_blocks[loop.index-1]}}){% endfor %}
 )
 
 (:goal (and
