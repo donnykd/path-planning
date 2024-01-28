@@ -1,5 +1,9 @@
 {
-    "explorer": "player",
+    "explorers": [
+        "player1", "player2", "player3",
+        "player4", "player5", "player6",
+        "player7", "player8"
+    ],
     "blocks": [
         "block1", "block2", "block3",
         "block4", "block5", "block6",
