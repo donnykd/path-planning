@@ -1,7 +1,7 @@
-;;!pre-parsing:{type: "jinja2", data: "case5.json"}
+;;!pre-parsing:{type: "jinja2", data: "case1.json"}
 (define (problem combination) (:domain explorer)
 (:objects 
-    {% for explorer in data.explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
+    {% for explorer in data.ed_explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
     {% endfor %}
     {% for block in data.ed_first_floor_blocks %}{{ block }} 
     {% endfor %}

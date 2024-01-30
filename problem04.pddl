@@ -1,8 +1,8 @@
-;;!pre-parsing:{type: "jinja2", data: "case3.json"}
+;;!pre-parsing:{type: "jinja2", data: "case1.json"}
 ;;;Problem was defined to test the interaction between players
 (define (problem give_item) (:domain explorer)
 (:objects 
-    {% for explorer in data.explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
+    {% for explorer in data.eight_explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
     {% endfor %}
     {% for block in data.blocks %}{% if not loop.last %}{{ block }}
     {% else %}{{ block }} - location {% endif %}{% endfor %}

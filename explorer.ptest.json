@@ -13,7 +13,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case1.json"
+        "data": "case.json"
       }
     },
     {
@@ -27,7 +27,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case2.json"
+        "data": "case.json"
       }
     },
     {
@@ -38,7 +38,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case1.json"
+        "data": "case.json"
       }
     },
     {
@@ -51,7 +51,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case3.json"
+        "data": "case.json"
       }
     },
     {
@@ -62,7 +62,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case1.json"
+        "data": "case.json"
       }
     },
     {
@@ -73,7 +73,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case4.json"
+        "data": "case.json"
       }
     },
     {
@@ -84,7 +84,7 @@
       ],
       "preProcess": {
         "kind": "jinja2",
-        "data": "case5.json"
+        "data": "case.json"
       }
     }
   ]
