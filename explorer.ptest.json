@@ -81,7 +81,11 @@
       "expectedPlans": [
         "problem07test1.plan",
         "problem07test2.plan"
-      ]
+      ],
+      "preProcess": {
+        "kind": "jinja2",
+        "data": "case5.json"
+      }
     }
   ]
 }

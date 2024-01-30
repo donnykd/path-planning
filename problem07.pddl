@@ -1,18 +1,12 @@
+;;!pre-parsing:{type: "jinja2", data: "case5.json"}
 (define (problem combination) (:domain explorer)
 (:objects 
-    player npc - explorer
-    block1_1 block1_2 block1_3
-    block1_4 block1_5 block1_6 
-    block1_7 block1_8 block1_9
-    block1_10 block1_11 block1_12
-    block1_13 block1_14 block1_15 
-    block1_16 block1_17 block1_18
-    block2_1 block2_2 block2_3
-    block2_4 block2_5 block2_6 
-    block2_7 block2_8 block2_9
-    block2_10 block2_11 block2_12
-    block2_13 block2_14 block2_15 
-    block2_16 block2_17 block2_18 - location
+    {% for explorer in data.explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
+    {% endfor %}
+    {% for block in data.ed_first_floor_blocks %}{{ block }} 
+    {% endfor %}
+    {% for block in data.ed_second_floor_blocks %}{% if not loop.last %}{{ block }}{% else %}{{ block }} - location {% endif %}
+    {% endfor %}
     ladder - ladder
     door_key chest_key - key
     trophy_chest - chest
@@ -34,61 +28,31 @@
     (restricted npc)
     ;defining connectivity between blocks for player to go through
     ;first floor connectivity
-    (connected block1_1 block1_2)
-    (connected block1_1 block1_4)
-    (connected block1_2 block1_3)
-    (connected block1_2 block1_5)
-    (connected block1_3 block1_6)
-    (connected block1_4 block1_5)
-    (connected block1_4 block1_7)
-    (connected block1_5 block1_6)
-    (connected block1_5 block1_8)
-    (connected block1_6 block1_9)
-    (connected block1_7 block1_8)
-    (connected block1_7 block1_10)
-    (connected block1_8 block1_9)
-    (connected block1_8 block1_11)
-    (connected block1_9 block1_12)
-    (connected block1_10 block1_11)
-    (connected block1_10 block1_13)
-    (connected block1_11 block1_12)
-    (connected block1_11 block1_14)
-    (connected block1_12 block1_15)
-    (connected block1_13 block1_14)
-    (connected block1_13 block1_16)
-    (connected block1_14 block1_15)
-    (connected block1_14 block1_17)
-    (connected block1_15 block1_18)
-    (connected block1_16 block1_17)
-    (connected block1_17 block1_18)
+    {% for block in data.ed_first_floor_blocks %} {% if not loop.last %} {% if loop.index == 3 or loop.index == 6 or loop.index == 9 or loop.index == 12 or loop.index == 15 %}
+    (connected {{data.ed_first_floor_blocks[loop.index-1]}} {{data.ed_first_floor_blocks[loop.index+2]}})
+    (connected {{data.ed_first_floor_blocks[loop.index+2]}} {{data.ed_first_floor_blocks[loop.index-1]}})
+    {% elif loop.index == 16 or loop.index == 17 %}
+    (connected {{data.ed_first_floor_blocks[loop.index-1]}} {{data.ed_first_floor_blocks[loop.index]}})
+    (connected {{data.ed_first_floor_blocks[loop.index]}} {{data.ed_first_floor_blocks[loop.index-1]}})
+    {% else %}
+    (connected {{data.ed_first_floor_blocks[loop.index-1]}} {{data.ed_first_floor_blocks[loop.index]}})
+    (connected {{data.ed_first_floor_blocks[loop.index]}} {{data.ed_first_floor_blocks[loop.index-1]}})
+    (connected {{data.ed_first_floor_blocks[loop.index-1]}} {{data.ed_first_floor_blocks[loop.index+2]}})
+    (connected {{data.ed_first_floor_blocks[loop.index+2]}} {{data.ed_first_floor_blocks[loop.index-1]}})
+    {%endif%}{%endif%}{%endfor%}
     ;second floor connectivity
-    (connected block2_1 block2_2)
-    (connected block2_1 block2_4)
-    (connected block2_2 block2_3)
-    (connected block2_2 block2_5)
-    (connected block2_3 block2_6)
-    (connected block2_4 block2_5)
-    (connected block2_4 block2_7)
-    (connected block2_5 block2_6)
-    (connected block2_5 block2_8)
-    (connected block2_6 block2_9)
-    (connected block2_7 block2_8)
-    (connected block2_7 block2_10)
-    (connected block2_8 block2_9)
-    (connected block2_8 block2_11)
-    (connected block2_9 block2_12)
-    (connected block2_10 block2_11)
-    (connected block2_10 block2_13)
-    (connected block2_11 block2_12)
-    (connected block2_11 block2_14)
-    (connected block2_12 block2_15)
-    (connected block2_13 block2_14)
-    (connected block2_13 block2_16)
-    (connected block2_14 block2_15)
-    (connected block2_14 block2_17)
-    (connected block2_15 block2_18)
-    (connected block2_16 block2_17)
-    (connected block2_17 block2_18)
+    {% for block in data.ed_second_floor_blocks %} {% if not loop.last %} {% if loop.index == 3 or loop.index == 6 or loop.index == 9 or loop.index == 12 or loop.index == 15 %}
+    (connected {{data.ed_second_floor_blocks[loop.index-1]}} {{data.ed_second_floor_blocks[loop.index+2]}})
+    (connected {{data.ed_second_floor_blocks[loop.index+2]}} {{data.ed_second_floor_blocks[loop.index-1]}})
+    {% elif loop.index == 16 or loop.index == 17 %}
+    (connected {{data.ed_second_floor_blocks[loop.index-1]}} {{data.ed_second_floor_blocks[loop.index]}})
+    (connected {{data.ed_second_floor_blocks[loop.index]}} {{data.ed_second_floor_blocks[loop.index-1]}})
+    {% else %}
+    (connected {{data.ed_second_floor_blocks[loop.index-1]}} {{data.ed_second_floor_blocks[loop.index]}})
+    (connected {{data.ed_second_floor_blocks[loop.index]}} {{data.ed_second_floor_blocks[loop.index-1]}})
+    (connected {{data.ed_second_floor_blocks[loop.index-1]}} {{data.ed_second_floor_blocks[loop.index+2]}})
+    (connected {{data.ed_second_floor_blocks[loop.index+2]}} {{data.ed_second_floor_blocks[loop.index-1]}})
+    {%endif%}{%endif%}{%endfor%}
     ;first floor blockage
     (blocked block1_1 block1_2)
     (blocked block1_4 block1_5)
@@ -109,37 +73,10 @@
     (blocked block2_10 block2_13)
     (blocked block2_11 block2_14)
     ;all blocks free except ones occupied by an entity
-    (free block1_2)
-    (free block1_3)
-    (free block1_4)
-    (free block1_5)
-    (free block1_6)
-    (free block1_7)
-    (free block1_8)
-    (free block1_9)
-    (free block1_10)
-    (free block1_11)
-    (free block1_12)
-    (free block1_13)
-    (free block1_14)
-    (free block1_15)
-    (free block1_16)
-    (free block1_18)
-    (free block2_3)
-    (free block2_4)
-    (free block2_5)
-    (free block2_6)
-    (free block2_7)
-    (free block2_8)
-    (free block2_9)
-    (free block2_10)
-    (free block2_11)
-    (free block2_12)
-    (free block2_13)
-    (free block2_14)
-    (free block2_16)
-    (free block2_17)
-    (free block2_18)
+    {% for block in data.ed_first_floor_blocks %}{% if loop.index != 1 and loop.index != 17 %}
+    (free {{data.ed_first_floor_blocks[loop.index-1]}}){% endif %}{% endfor %}
+    {% for block in data.ed_second_floor_blocks %}{% if loop.index != 1 and loop.index != 2 and loop.index != 15 %}
+    (free {{data.ed_second_floor_blocks[loop.index-1]}}){% endif %}{% endfor %}
     ;doors and floors
     (door block1_10 block1_11)
     (door block1_13 block1_16)
