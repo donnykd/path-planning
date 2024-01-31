@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case.json"}
+;;!pre-parsing:{type: "jinja2", data: "..\case.json"}
 (define (problem combination) (:domain explorer)
 (:objects 
     {% for explorer in data.ed_explorers %}{% if not loop.last %}{{ explorer }}{% else %}{{ explorer }} - explorer {% endif %}
