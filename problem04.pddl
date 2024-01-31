@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+;;!pre-parsing:{type: "jinja2", data: "case.json"}
 ;;;Problem was defined to test the interaction between players
 (define (problem give_item) (:domain explorer)
 (:objects 

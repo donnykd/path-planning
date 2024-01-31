@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+;;!pre-parsing:{type: "jinja2", data: "case.json"}
 
 ;;;Problem initially made to test the traversal of 2 players between blocks,
 ;;;became more complex with the addition of extra actions and predicate.

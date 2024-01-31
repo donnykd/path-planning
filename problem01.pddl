@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+;;!pre-parsing:{type: "jinja2", data: "case.json"}
 
 ;;;problem to test and try out the move action
 ;;;combination of old move actions; move_left, move_right, etc.

@@ -5,11 +5,11 @@
     {
       "problem": "problem01.pddl",
       "expectedPlans": [
-        "problem01test1.plan",
-        "problem01test2.plan",
-        "problem01test3.plan",
-        "problem01test4.plan",
-        "problem01test5.plan"
+        "tests/problem01test1.plan",
+        "tests/problem01test2.plan",
+        "tests/problem01test3.plan",
+        "tests/problem01test4.plan",
+        "tests/problem01test5.plan"
       ],
       "preProcess": {
         "kind": "jinja2",
@@ -19,11 +19,11 @@
     {
       "problem": "problem02.pddl",
       "expectedPlans": [
-        "problem02test1.plan",
-        "problem02test2.plan",
-        "problem02test3.plan",
-        "problem02test4.plan",
-        "problem02test5.plan"
+        "tests/problem02test1.plan",
+        "tests/problem02test2.plan",
+        "tests/problem02test3.plan",
+        "tests/problem02test4.plan",
+        "tests/problem02test5.plan"
       ],
       "preProcess": {
         "kind": "jinja2",
@@ -33,8 +33,8 @@
     {
       "problem": "problem03.pddl",
       "expectedPlans": [
-        "problem03test1.plan",
-        "problem03test2.plan"
+        "tests/problem03test1.plan",
+        "tests/problem03test2.plan"
       ],
       "preProcess": {
         "kind": "jinja2",
@@ -44,10 +44,10 @@
     {
       "problem": "problem04.pddl",
       "expectedPlans": [
-        "problem04test1.plan",
-        "problem04test2.plan",
-        "problem04test3.plan",
-        "problem04test4.plan"
+        "tests/problem04test1.plan",
+        "tests/problem04test2.plan",
+        "tests/problem04test3.plan",
+        "tests/problem04test4.plan"
       ],
       "preProcess": {
         "kind": "jinja2",
@@ -57,8 +57,8 @@
     {
       "problem": "problem05.pddl",
       "expectedPlans": [
-        "problem05test1.plan",
-        "problem05test2.plan"
+        "tests/problem05test1.plan",
+        "tests/problem05test2.plan"
       ],
       "preProcess": {
         "kind": "jinja2",
@@ -68,8 +68,8 @@
     {
       "problem": "problem06.pddl",
       "expectedPlans": [
-        "problem06test1.plan",
-        "problem06test2.plan"
+        "tests/problem06test1.plan",
+        "tests/problem06test2.plan"
       ],
       "preProcess": {
         "kind": "jinja2",
@@ -79,8 +79,8 @@
     {
       "problem": "problem07.pddl",
       "expectedPlans": [
-        "problem07test1.plan",
-        "problem07test2.plan"
+        "tests/problem07test1.plan",
+        "tests/problem07test2.plan"
       ],
       "preProcess": {
         "kind": "jinja2",

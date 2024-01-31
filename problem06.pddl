@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+;;!pre-parsing:{type: "jinja2", data: "case.json"}
 ;;;Problem defined to test the dimensionality of blocks and how to traverse through them
 (define (problem ladders) (:domain explorer)
 (:objects 

@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+;;!pre-parsing:{type: "jinja2", data: "case.json"}
 
 ;;;Problem to test every feature connected with chests
 (define (problem pick_up_item) (:domain explorer)

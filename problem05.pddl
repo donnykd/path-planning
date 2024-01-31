@@ -1,4 +1,4 @@
-;;!pre-parsing:{type: "jinja2", data: "case1.json"}
+;;!pre-parsing:{type: "jinja2", data: "case.json"}
 ;;;Problem checks the interactions with doors and blocked terrain
 (define (problem door-interactions) (:domain explorer)
 (:objects 
