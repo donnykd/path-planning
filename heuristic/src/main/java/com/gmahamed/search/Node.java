@@ -9,4 +9,10 @@ public class Node {
         this.i = i;
         this.j = j;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return ("i: " + i + ", j: " + j);
+    }
 }
