@@ -1,18 +1,19 @@
 package com.gmahamed.search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Node {
     //co-ordinates
     public int i, j;
     //parent node
-    Node parent;
+    private Node parent;
     //f(n) = g(n) + h(n)
     //f(n) = estimated total cost of path through n to goal
     //g(n) = actual cost to reach n
     //h(n) = estimated cost to goal from n
-    int g, h;
+    private int g, h;
     int f;
     boolean solution;
 
@@ -33,6 +34,10 @@ public class Node {
 
     public void setH(int x){
         this.h = x;
+    }
+
+    public void setParent(Node node){
+        this.parent = node;
     }
 
     public int getF(){
@@ -58,7 +63,7 @@ public class Node {
             path.add(current);
             current = current.parent;
         }
-
+        Collections.reverse(path);
         return path;
     }
 }
