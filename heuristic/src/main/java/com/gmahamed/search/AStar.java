@@ -1,7 +1,9 @@
 package com.gmahamed.search;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class AStar {
@@ -44,7 +46,31 @@ public class AStar {
                 break;
             }
 
+        }
+
+
+    }
+
+    private List<Node> expandNeighbours(Node node){
+        List<Node> neighbours = new ArrayList<>();
+        int[][] directions = new int[][]{
+            {1, 0}, //down
+            {-1, 0}, //up
+            {0, -1}, //left
+            {0, 1}, //right
+        };
+
+        for(int[] dir : directions){
+            int xi = node.i + dir[0];
+            int xj = node.j + dir[1];
+
+            //checks if neighbour is in the space
+            if(xi >= 0 && xi < space.length && xj >= 0 && xj < space[0].length){
+                Node neighbour = space[xi][xj];
+                neighbours.add(neighbour);
+            }
 
         }
+        return neighbours;
     }
 }
