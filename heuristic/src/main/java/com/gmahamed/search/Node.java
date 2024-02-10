@@ -15,7 +15,6 @@ public class Node {
     //h(n) = estimated cost to goal from n
     private int g, h;
     int f;
-    boolean solution;
 
     public Node(int i, int j){
         this.i = i;
@@ -28,6 +27,7 @@ public class Node {
         return ("i: " + i + ", j: " + j);
     }
 
+    public int getG(){ return this.g;}
     public void setG(int x){
         this.g = x;
     }
