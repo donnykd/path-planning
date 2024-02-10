@@ -13,8 +13,7 @@ public class Node {
     //f(n) = estimated total cost of path through n to goal
     //g(n) = actual cost to reach n
     //h(n) = estimated cost to goal from n
-    private int g, h;
-    int f;
+    private int g, h, f;
 
     public Node(int i, int j){
         this.i = i;
@@ -30,10 +29,12 @@ public class Node {
     public int getG(){ return this.g;}
     public void setG(int x){
         this.g = x;
+        updateF();
     }
 
     public void setH(int x){
         this.h = x;
+        updateF();
     }
 
     public void setParent(Node node){

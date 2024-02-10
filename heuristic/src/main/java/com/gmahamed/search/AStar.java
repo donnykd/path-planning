@@ -51,7 +51,6 @@ public class AStar {
                     if(!openNodes.contains(neighbour)){ //no comparison between g nodes since horizontal and vertical movements are equal
                         neighbour.setG(gCostToNeighbour);
                         openNodes.add(neighbour);
-                        neighbour.updateF();
                         neighbour.setParent(currentNode);
                     }
                 }
