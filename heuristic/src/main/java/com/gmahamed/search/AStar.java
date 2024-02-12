@@ -15,6 +15,10 @@ public class AStar {
     Node goalNode;
     Node currentNode;
 
+    public AStar(int spaceWidth, int spaceHeight, int startI, int startJ, int goalI, int goalJ){
+        this(spaceWidth, spaceHeight, startI, startJ, goalI, goalJ, new ArrayList<>());
+    }
+
     public AStar(int spaceWidth, int spaceHeight, int startI, int startJ, int goalI, int goalJ, List<Node> blockedNodes){
         space = new Node[spaceWidth][spaceHeight];
         openNodes = new PriorityQueue<>(Comparator.comparingInt(Node::getF));
@@ -48,6 +52,7 @@ public class AStar {
                 }
                 break;
             }
+
             for(Node neighbour : expandNeighbours(currentNode)){
                 if(!closedNodes.contains(neighbour)){
                     int gCostToNeighbour = currentNode.getG() + 1;
@@ -58,6 +63,10 @@ public class AStar {
                     }
                 }
             }
+        }
+
+        if(openNodes.size() == 0){
+            System.out.println("No Solution");
         }
 
 
@@ -91,16 +100,10 @@ public class AStar {
     }
 
     public static void main(String[] args) {
-        List<Node> blockedNodes = new ArrayList<>(){{
-            add(new Node(5,0));
-            add(new Node(5,1));
-            add(new Node(5,2));
-            add(new Node(5,4));
-            add(new Node(5,3));
-            add(new Node(5,6));
-            add(new Node(5,7));
-            add(new Node(5,8));
-        }};
-        AStar AStar = new AStar(9, 9, 0, 0, 8, 6, blockedNodes);
+        List<Node> blockedNodes = new ArrayList<>();
+        blockedNodes.add(new Node(0, 1));
+        blockedNodes.add(new Node(1, 1)); 
+        blockedNodes.add(new Node(2, 1)); 
+        AStar AStar = new AStar(3, 3, 0, 0, 2, 2, blockedNodes);
     }
 }
