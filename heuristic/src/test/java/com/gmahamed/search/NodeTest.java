@@ -27,12 +27,9 @@ public class NodeTest {
     void testGetF(){
         node.setG(1);
         node.setH(5);
-        node.updateF();
         assertTrue(node.getF() == 6);
         node.setG(7);
         node.setH(2);
-        assertTrue(node.getF() == 6);
-        node.updateF();
         assertTrue(node.getF() == 9);
     }
 
