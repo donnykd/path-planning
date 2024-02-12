@@ -15,7 +15,7 @@ public class AStar {
     Node goalNode;
     Node currentNode;
 
-    public AStar(int spaceWidth, int spaceHeight, int startI, int startJ, int goalI, int goalJ){
+    public AStar(int spaceWidth, int spaceHeight, int startI, int startJ, int goalI, int goalJ, List<Node> blockedNodes){
         space = new Node[spaceWidth][spaceHeight];
         openNodes = new PriorityQueue<>(Comparator.comparingInt(Node::getF));
         closedNodes = new HashSet<Node>();
@@ -29,6 +29,10 @@ public class AStar {
             }
         }
 
+        for(Node node : blockedNodes){
+            space[node.i][node.j].setBlocked(true);
+        }
+
         startNode.setH(Math.abs(startNode.i - goalNode.i) + Math.abs(startNode.j - goalNode.j));
         openNodes.add(startNode);
 
@@ -39,10 +43,8 @@ public class AStar {
 
             if(currentNode.equals(goalNode)){
                 //find the solution
-                if(currentNode.equals(goalNode)){
-                    for(Node node : getShortestPath(currentNode)){
-                        System.out.println(node);
-                    }
+                for(Node node : getShortestPath(currentNode)){
+                    System.out.println(node);
                 }
                 break;
             }
@@ -75,7 +77,7 @@ public class AStar {
             int xj = node.j + dir[1];
 
             //checks if neighbour is in the space
-            if(xi >= 0 && xi < space.length && xj >= 0 && xj < space[0].length){
+            if(xi >= 0 && xi < space.length && xj >= 0 && xj < space[0].length && !space[xi][xj].isBlocked()){
                 Node neighbour = space[xi][xj];
                 neighbours.add(neighbour);
             }
@@ -89,6 +91,16 @@ public class AStar {
     }
 
     public static void main(String[] args) {
-        AStar AStar = new AStar(9, 9, 0, 0, 8, 6);
+        List<Node> blockedNodes = new ArrayList<>(){{
+            add(new Node(5,0));
+            add(new Node(5,1));
+            add(new Node(5,2));
+            add(new Node(5,4));
+            add(new Node(5,3));
+            add(new Node(5,6));
+            add(new Node(5,7));
+            add(new Node(5,8));
+        }};
+        AStar AStar = new AStar(9, 9, 0, 0, 8, 6, blockedNodes);
     }
 }

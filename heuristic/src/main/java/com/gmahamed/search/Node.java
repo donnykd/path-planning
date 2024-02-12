@@ -9,6 +9,8 @@ public class Node {
     public int i, j;
     //parent node
     private Node parent;
+    // Boolean to determine if node is traversable
+    private boolean blocked;
     //f(n) = g(n) + h(n)
     //f(n) = estimated total cost of path through n to goal
     //g(n) = actual cost to reach n
@@ -68,4 +70,9 @@ public class Node {
         Collections.reverse(path);
         return path;
     }
+
+    public void setBlocked(boolean b) {
+        this.blocked = true;
+    }
+    public boolean isBlocked(){ return blocked;}
 }
