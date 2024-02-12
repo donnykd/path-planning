@@ -13,13 +13,14 @@ public class AStar {
     Node[][] space;
     Node startNode;
     Node goalNode;
+    Node currentNode;
 
-    public AStar(){
-        space = new Node[3][3];
+    public AStar(int spaceWidth, int spaceHeight, int startI, int startJ, int goalI, int goalJ){
+        space = new Node[spaceWidth][spaceHeight];
         openNodes = new PriorityQueue<>(Comparator.comparingInt(Node::getF));
         closedNodes = new HashSet<Node>();
-        startNode = new Node(0, 0);
-        goalNode = new Node(2, 2);
+        startNode = new Node(startI, startJ);
+        goalNode = new Node(goalI, goalJ);
 
         for(int i=0; i < space.length; i++){
             for(int j = 0; j < space[i].length; j++){
@@ -33,13 +34,13 @@ public class AStar {
 
         while(openNodes.size() > 0){
 
-            Node currentNode = openNodes.poll();
+            currentNode = openNodes.poll();
             closedNodes.add(currentNode);
 
             if(currentNode.equals(goalNode)){
                 //find the solution
                 if(currentNode.equals(goalNode)){
-                    for(Node node : currentNode.getSolution()){
+                    for(Node node : getShortestPath(currentNode)){
                         System.out.println(node);
                     }
                 }
@@ -81,5 +82,13 @@ public class AStar {
 
         }
         return neighbours;
+    }
+
+    public List<Node> getShortestPath(Node node) {
+        return node.getSolution();
+    }
+
+    public static void main(String[] args) {
+        AStar AStar = new AStar(9, 9, 0, 0, 8, 6);
     }
 }

@@ -32,6 +32,7 @@ public class Node {
         updateF();
     }
 
+    public int getH(){ return this.h;}
     public void setH(int x){
         this.h = x;
         updateF();
