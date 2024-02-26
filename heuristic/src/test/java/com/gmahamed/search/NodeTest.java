@@ -17,13 +17,16 @@ public class NodeTest {
         node = new Node(1, 1);
     }
 
-    @Test
+    @Test //1st Test
+    //This test checks if toString method for the node is correct.
     void testToString(){
         node = new Node(10, 15);
         assertEquals(node.toString(), "i: 10, j: 15");
     }
 
-    @Test
+    @Test //2nd Test
+    //This test checks if f cost is changed by setting different g and h costs on the same node, inadvertantly also testing
+    //setG and setH
     void testGetF(){
         node.setG(1);
         node.setH(5);
@@ -33,7 +36,8 @@ public class NodeTest {
         assertTrue(node.getF() == 9);
     }
 
-    @Test
+    @Test //3rd Test
+    //This test checks if the method Equals works as intended
     void testEquals(){
         Node test1 = new Node(1, 1);
         Node test2 = new Node(2, 2);
@@ -41,7 +45,8 @@ public class NodeTest {
         assertFalse(node.equals(test2));
     }
 
-    @Test
+    @Test //4th Test
+    //This test checks if the solution is correct and set in the right order
     void testSolution(){
         node = new Node(3, 3);
         Node parent = new Node(3, 2);
