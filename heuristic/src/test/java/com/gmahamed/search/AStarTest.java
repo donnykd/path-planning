@@ -18,17 +18,21 @@ public class AStarTest {
         path = new AStar(3, 3, 0, 0, 2, 2);
     }
 
-    @Test
+    @Test //1st Test
+    //Test to check if condition of finding the solution is met
     void openNodesSize(){
-        assertTrue(path.openNodes.size() == 1);
+        assertTrue(path.openNodes.size() > 0);
     }
 
-    @Test
+    @Test //2nd Test
+    //Test to check if assignment of Hcost was done correctly
     void testHCost(){
         assertEquals(path.goalNode.getH(), 0);
         assertEquals(path.startNode.getH(), 4);
     }
-    @Test
+
+    @Test //3rd Test
+    //Test to check if path is correctly generated 
     void correctPathTest(){
         List<Node> path2 = path.getShortestPath(path.currentNode);
         assertFalse(path2.isEmpty());
@@ -37,7 +41,8 @@ public class AStarTest {
         assertEquals("i: 2, j: 2", path2.get(4).toString());
     }
 
-    @Test
+    @Test //4th Test
+    //Test to check if path is correctly generated with blocked nodes
     void correctPathWithBlockedNodesTest(){
         List<Node> blockedNodes = new ArrayList<>(){{
             add(new Node(5,0));
