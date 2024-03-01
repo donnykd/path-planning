@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Khalid Mahamed
  * 
- *         Defines a node on used for A* Search algorithm.
+ *         Creates a node used for A* Search algorithm.
  *         Coordinates, parent node and cost information will be used in assistance for the A* search.
  *         
  * 
