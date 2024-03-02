@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class EntityTest {
-    EntityType entity;
+    Entity entity;
 
     @Test
     void testEntity() {
-        entity = EntityType.BOX;
+        entity = Entity.BOX;
         assertEquals(entity.toString(), "Box", "checks if toString method returns the correct string");
   }
 

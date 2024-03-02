@@ -8,12 +8,12 @@ package com.gmahamed.search;
  */
 
 
-public enum EntityType {
+public enum Entity {
     EXPLORER("Explorer"), BOX("Box"), CHEST("Chest");
 
     private String print; // used to initialise and store the string of each enum.
 
-    private EntityType(String s) {
+    private Entity(String s) {
         print = s;
     }
 

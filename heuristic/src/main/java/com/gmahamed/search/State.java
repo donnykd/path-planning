@@ -3,10 +3,10 @@ package com.gmahamed.search;
 import java.util.HashMap;
 
 public class State {
-    private EntityType set_entity;
-    private HashMap<EntityType, Node> currentState = new HashMap<EntityType, Node>();
+    private Entity set_entity;
+    private HashMap<Entity, Node> currentState = new HashMap<Entity, Node>();
 
-    public State(EntityType entity, Node node) {
+    public State(Entity entity, Node node) {
         this.set_entity = entity;
         currentState.put(entity, node);
     }

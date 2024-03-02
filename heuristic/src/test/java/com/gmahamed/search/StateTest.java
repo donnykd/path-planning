@@ -11,7 +11,7 @@ public class StateTest {
 
     @BeforeEach
     void setup(){
-        initialState = new State(EntityType.EXPLORER, new Node(0, 0));
+        initialState = new State(Entity.EXPLORER, new Node(0, 0));
     }
 
     @Test
