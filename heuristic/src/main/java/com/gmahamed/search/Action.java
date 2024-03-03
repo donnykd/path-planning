@@ -1,24 +1,40 @@
 package com.gmahamed.search;
 
 public class Action {
-    private ActionType action;
 
-    public Action(ActionType action){
-        this.action = action;
+    //move constructor
+    public Action(ActionType action, State state, Node node){
+        this(action, state, null, node, null, null);
     }
-
-    public void performEffect(State state, Node node, Item item) {
+    //pickup constructor
+    public Action(ActionType action, State state, Item item){
+        this(action, state, null, null, null, item);
+    }
+    public Action(ActionType action, State state1, State state2, Node node1, Node node2){
+        this(action, state1, state2, node1, node2, null);
+    }
+    //base constructor
+    public Action(ActionType action, State state1, State state2, Node node1, Node node2, Item item){
         switch (action) {
             case MOVE:
-                moveEffect(state, node);
+                moveEffect(state1, node1);
                 break;
             case PICK_UP:
-                pickEffect(state, item);
+                pickEffect(state1, item);
+                break;
+            case PULL:
+            case PUSH:
+                pullAndPushEffect(state1, state2, node1, node2);
+                break;
             default:
                 break;
         }
     }
 
+    private void pullAndPushEffect(State state1, State state2, Node node1, Node node2) {
+        state1.updateNode(node1);
+        state2.updateNode(node2);
+    }
     private void pickEffect(State state, Item item) {
         state.store(item);
     }
