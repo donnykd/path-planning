@@ -1,41 +1,54 @@
 package com.gmahamed.search;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 public class ActionTest {
+    State currentState;
+
+    @BeforeEach
+    void setup(){
+        currentState = new State(Entity.EXPLORER, new Node(0, 0));
+    }
 
     @Test
     void moveEffectTest(){
-        State currentState = new State(Entity.EXPLORER, new Node(0, 0));
         new Action(ActionType.MOVE, currentState, new Node(1, 0));
         assertEquals("i: 1, j: 0", currentState.getNode().toString());
     }
 
     @Test
     void pickEffectTest(){
-        State stored = new State(Entity.EXPLORER);
-        new Action(ActionType.PICK_UP, stored, Item.KEY);
-        assertEquals("Key", stored.getItem().toString());
+        new Action(ActionType.PICK_UP, currentState, Item.KEY);
+        assertEquals("Key", currentState.getItem(Item.KEY).toString());
     }
 
     @Test
     void jointMovePickTest(){
-        State currentState = new State(Entity.EXPLORER, new Node(0, 0));
-        State stored = new State(Entity.EXPLORER);
-        new Action(ActionType.PICK_UP, stored, Item.KEY);
+        new Action(ActionType.PICK_UP, currentState, Item.KEY);
         new Action(ActionType.MOVE, currentState, new Node(1, 0));
         assertEquals("i: 1, j: 0", currentState.getNode().toString());
-        assertEquals("Key", stored.getItem().toString());
+        assertEquals("Key", currentState.getItem(Item.KEY).toString());
     }
 
     @Test
     void pushAndPullTest(){
-        State explorerState = new State(Entity.EXPLORER, new Node(0, 1));
-        State boxState = new State(Entity.EXPLORER, new Node(0, 2));
-        new Action(ActionType.PULL, explorerState, boxState, new Node(0, 0), new Node(0, 1));
-        assertEquals("i: 0, j: 0", explorerState.getNode().toString());
-        assertEquals("i: 0, j: 1", boxState.getNode().toString());
+        State boxState = new State(Entity.EXPLORER, new Node(0, 1));
+        new Action(ActionType.PUSH, currentState, boxState, new Node(0, 1), new Node(0, 2));
+        assertEquals("i: 0, j: 1", currentState.getNode().toString());
+        assertEquals("i: 0, j: 2", boxState.getNode().toString());
+    }
+
+    @Test
+    void giveEffectTest(){
+        State state2 = new State(Entity.EXPLORER, new Node(0, 1));
+        currentState.store(Item.TROPHY);
+        new Action(ActionType.GIVE, currentState, state2, Item.TROPHY);
+        assertFalse(currentState.hasItem(Item.TROPHY));
+        assertTrue(state2.hasItem(Item.TROPHY));
     }
 
 }

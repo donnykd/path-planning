@@ -24,9 +24,19 @@ public class StateTest {
     @Test
     //Checks if the mapping is updated and makes sure no new mapping is created
     void testUpdateNode() {
+        assertEquals("i: 0, j: 0", initialState.getNode().toString());
         Node new_node = new Node(0, 1);
         initialState.updateNode(new_node);
         assertEquals("i: 0, j: 1", initialState.getNode().toString());
         assertTrue(initialState.size() == 1);
+    }
+
+    @Test
+    void getTest(){
+        assertEquals(1, initialState.size());
+        initialState.store(Item.KEY);
+        assertEquals(2, initialState.size());
+        initialState.updateNode(new Node(1, 0));
+        assertEquals(2, initialState.size());
     }
 }
