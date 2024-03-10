@@ -50,5 +50,13 @@ public class ActionTest {
         assertFalse(currentState.hasItem(Item.TROPHY));
         assertTrue(state2.hasItem(Item.TROPHY));
     }
+    @Test
+    void openEffectTest(){
+        State chest = new State(Entity.CHEST, new Node(1,0));
+        currentState.store(Item.KEY);
+        new Action(ActionType.OPEN, currentState, chest, Item.KEY);
+        assertFalse(currentState.hasItem(Item.KEY));
+        assertTrue(chest.hasItem(Item.KEY));
+    }
 
 }
