@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 public class ActionTest {
@@ -57,6 +60,17 @@ public class ActionTest {
         new Action(ActionType.OPEN, currentState, chest, Item.KEY);
         assertFalse(currentState.hasItem(Item.KEY));
         assertTrue(chest.hasItem(Item.KEY));
+    }
+    @Test
+    void unlockEffect(){
+        List<Node> blockedNodes = new ArrayList<>();
+        Node door = new Node(0, 1);
+        blockedNodes.add(door);
+        blockedNodes.add(new Node(1, 1)); 
+        blockedNodes.add(new Node(2, 1));
+        new Action(ActionType.UNLOCK, currentState, blockedNodes);
+        assertTrue(door.isBlocked() == false);
+        assertFalse(currentState.hasItem(Item.KEY));
     }
 
 }

@@ -22,7 +22,7 @@ public class Node {
     private Node parent;
 
     // Boolean to determine if node is traversable
-    private boolean blocked;
+    private boolean blocked, door;
 
     //f(n) = g(n) + h(n)
     //f(n) = estimated total cost of path through n to goal
@@ -160,6 +160,19 @@ public class Node {
      */
     public boolean isBlocked() {
         return blocked;
+    }
+
+
+    public boolean isNeighbour(Node node) {
+        return Math.abs(this.i - node.i) + Math.abs(this.j - node.j) == 1;
+    }
+
+    public void setDoor(boolean b){
+        this.door = b;
+    }
+    
+    public boolean isDoor() {
+        return door;
     }
     
 }
