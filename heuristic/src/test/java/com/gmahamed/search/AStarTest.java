@@ -15,51 +15,50 @@ public class AStarTest {
 
     @BeforeEach
     void setup(){
-        path = new AStar(3, 3, 0, 0, 2, 2);
+        path = new AStar(3, 3, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, new Node(2, 1)));
     }
 
     @Test //1st Test
     //Test to check if condition of finding the solution is met
     void openNodesSize(){
-        assertTrue(path.openNodes.size() > 0);
+        assertTrue(path.openStates.size() > 0);
     }
 
     @Test //2nd Test
     //Test to check if assignment of Hcost was done correctly
     void testHCost(){
-        assertEquals(path.goalNode.getH(), 0);
-        assertEquals(path.startNode.getH(), 4);
+        assertEquals(path.goalState.getNode().getH(), 0);
+        assertEquals(path.startState.getNode().getH(), 3);
     }
 
     @Test //3rd Test
     //Test to check if path is correctly generated 
     void correctPathTest(){
-        List<Node> path2 = path.getShortestPath(path.currentNode);
-        assertFalse(path2.isEmpty());
-        assertEquals(5, path2.size());
-        assertEquals("i: 0, j: 0", path2.get(0).toString());
-        assertEquals("i: 2, j: 2", path2.get(4).toString());
+        List<String> expectedPath = new ArrayList<>();
+        expectedPath.add("Move i: 0, j: 0 -> i: 1, j: 0");
+        expectedPath.add("Move i: 1, j: 0 -> i: 1, j: 1");
+        expectedPath.add("Move i: 1, j: 1 -> i: 2, j: 1");
+
+        List<String> generatedPath = path.reconstructActions(path.currentState);
+
+        assertEquals(expectedPath, generatedPath);
     }
 
     @Test //4th Test
     //Test to check if path is correctly generated with blocked nodes
     void correctPathWithBlockedNodesTest(){
         List<Node> blockedNodes = new ArrayList<>(){{
-            add(new Node(5,0));
-            add(new Node(5,1));
-            add(new Node(5,2));
-            add(new Node(5,4));
-            add(new Node(5,3));
-            add(new Node(5,6));
-            add(new Node(5,7));
-            add(new Node(5,8));
+            add(new Node(0,1));
+            add(new Node(1,1));
+            add(new Node(2,1));
+            add(new Node(3,1));
         }};
-        AStar AStar = new AStar(9, 9, 0, 0, 8, 6, blockedNodes);
-        List<Node> blockPath = AStar.getShortestPath(AStar.currentNode);
+        path = new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, new Node(0, 3)), blockedNodes);
+        List<String> generatedPath = path.reconstructActions(path.currentState);
 
-        assertFalse(blockPath.isEmpty());
-        assertEquals(15, blockPath.size());
-        assertEquals("i: 0, j: 0", blockPath.get(0).toString());
-        assertEquals("i: 8, j: 6", blockPath.get(14).toString());
+        assertFalse(generatedPath.isEmpty());
+        assertEquals(11, generatedPath.size());
+        assertEquals("Move i: 0, j: 0 -> i: 1, j: 0", generatedPath.get(0).toString());
+        assertEquals("Move i: 1, j: 3 -> i: 0, j: 3", generatedPath.get(10).toString());
     }
 }

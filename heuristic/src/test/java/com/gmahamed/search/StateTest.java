@@ -39,4 +39,14 @@ public class StateTest {
         initialState.updateNode(new Node(1, 0));
         assertEquals(2, initialState.size());
     }
+
+    @Test
+    void equalsTest(){
+        State nextState = initialState;
+        nextState.updateNode(new Node(0, 1));
+        nextState.setPreviousState(initialState);
+
+        State tempState = new State(Entity.EXPLORER, new Node(0, 1));
+        assertTrue(nextState.equals(tempState));
+    }
 }

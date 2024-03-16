@@ -68,9 +68,6 @@ public class Action {
     }
 
     private void unlockEffect(State state1, List<Node> list) {
-        //get node from state
-        //loop through list to find the neighbour node to the node from state
-        //make that node unblocked and remove key from state
         for(int i = 0; i < list.size(); i++){
             if(list.get(i).isNeighbour(state1.getNode()) && list.get(i).isDoor()){
                 list.get(i).setBlocked(false);

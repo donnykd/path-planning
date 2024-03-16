@@ -109,7 +109,7 @@ public class Node {
     }
 
     // Updates f whenever g or h changes.
-    private void updateF(){
+    public void updateF(){
         f = g + h;
     }
 
