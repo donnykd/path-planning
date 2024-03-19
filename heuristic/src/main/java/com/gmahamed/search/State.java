@@ -1,10 +1,6 @@
 package com.gmahamed.search;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class State {
     private Entity set_entity;
@@ -15,11 +11,12 @@ public class State {
 
     public State(Entity entity, Node node) {
         this.set_entity = entity;
-        currentState = new HashMap<>();
+        this.currentState = new HashMap<>();
         List<Object> list = new ArrayList<>();
         list.add(node);
         currentState.put(entity, list);
     }
+
     public State(Item item, Node node){
         items.put(item, node);
         this.carried = false;
@@ -50,8 +47,8 @@ public class State {
 
     // ITEM SPECIFIC METHODS
 
-    public Node getItemNode(){
-        return items.get(0);
+    public Node getItemNode(Item item){
+        return items.get(item);
     }
 
     public void store(Item item){
@@ -102,20 +99,35 @@ public class State {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null){
+        if (this == obj)
+            return true;
+        if (obj == null)
             return false;
-        }
-        if(obj instanceof State){
-            State state = (State) obj;  
-            return this.getNode().equals(state.getNode());
-        }
-        return false;
+        if (getClass() != obj.getClass())
+            return false;
+        State other = (State) obj;
+        if (currentState == null) {
+            if (other.currentState != null)
+                return false;
+        } else if (!currentState.equals(other.currentState))
+            return false;
+        if (items == null) {
+            if (other.items != null)
+                return false;
+        } else if (!items.equals(other.items))
+            return false;
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currentState);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((currentState == null) ? 0 : currentState.hashCode());
+        result = prime * result + ((items == null) ? 0 : items.hashCode());
+        return result;
     }
+
 
 
 }

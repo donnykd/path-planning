@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -70,33 +71,44 @@ public class AStar {
         loop();
     }
 
-    // Until goal node is found or there are no more nodes to expand, expand neighbour and add to openNodes.
+    // Until goal State is found or there are no more States to expand, expand neighbour and add to openStates.
     private void loop() {
-        while (openStates.size() > 0) {
-
-            //remove first element of openNodes (The lowest F Cost), set it to currentNode and add to closedNodes
+        long startTime = System.currentTimeMillis();
+        int nodesExpanded = 0;
+        int itemCount = itemList.size() - 1;
+    
+        while (!openStates.isEmpty()) {
             currentState = openStates.poll();
             closedStates.add(currentState);
+            nodesExpanded++;
 
-            //If the current node being evaluated is the goal node, find the solution path
-            if (currentState.getNode().equals(goalState.getNode())) {
-                //if goal state was the start state from the beginning 
-                if(currentState.getPreviousState() == null){
-                    System.out.println(currentState.getNode().toString());
+            if (currentState.getNode().equals(goalState.getNode()) && itemList.size() == 1) {
+                long endTime = System.currentTimeMillis();
+                long totalTime = endTime - startTime;
+                System.out.println("Solution found in " + totalTime + " milliseconds.");
+                if (currentState.getPreviousState() == null) {
+                    System.out.println("Start state is the goal state: " + currentState.getNode());
                 }
-                for(String action : reconstructActions(currentState)){
+                for (String action : reconstructActions(currentState)) {
                     System.out.println(action);
                 }
                 solutionFound = true;
                 break;
             }
 
-            //Evaluate all nodes from list of neighbour nodes
+            for(Item item : Item.values()){
+                if (currentState.hasItem(item) && itemCount != itemList.size() - 1) {
+                    closedStates.clear();
+                    openStates.clear();
+                    itemCount = itemList.size() - 1;
+                }
+            }
+    
             List<State> successors = generateSuccessors(currentState);
             for (State successor : successors) {
                 if (!closedStates.contains(successor)) {
                     int gCostToNeighbour = currentState.getNode().getG() + 1;
-                    if(!openStates.contains(successor)){
+                    if (!openStates.contains(successor)) {
                         successor.getNode().setG(gCostToNeighbour);
                         successor.setPreviousState(currentState);
                         openStates.add(successor);
@@ -104,9 +116,11 @@ public class AStar {
                 }
             }
         }
-
+    
         if (!solutionFound) {
             System.out.println("No Solution");
+        } else {
+            System.out.println("Nodes expanded: " + nodesExpanded);
         }
     }
 
@@ -119,9 +133,17 @@ public class AStar {
                 ActionType move = ActionType.MOVE;
                 actions.add(new String(move.toString() + " " + curr.getPreviousState().getNode().toString() + " -> " + curr.getNode().toString()));
             }
-            else if(curr.hasItem(Item.KEY) && !curr.getPreviousState().hasItem(Item.KEY)){
+            else if (curr.hasItem(Item.KEY) && curr.getPreviousState() != null && !curr.getPreviousState().hasItem(Item.KEY)){
                 ActionType pick = ActionType.PICK_UP;
                 actions.add(new String(pick.toString() + " " + Item.KEY.toString()));
+            }
+            else if (curr.hasItem(Item.TROPHY) && curr.getPreviousState() != null && !curr.getPreviousState().hasItem(Item.KEY)){
+                ActionType pick = ActionType.PICK_UP;
+                actions.add(new String(pick.toString() + " " + Item.TROPHY.toString()));
+            }
+            else if (curr.hasItem(Item.LADDER) && curr.getPreviousState() != null && !curr.getPreviousState().hasItem(Item.KEY)){
+                ActionType pick = ActionType.PICK_UP;
+                actions.add(new String(pick.toString() + " " + Item.LADDER.toString()));
             }
             curr = curr.getPreviousState();
         }
@@ -137,7 +159,14 @@ public class AStar {
                 List <State> successorStates = applyAction(action, state);
                 for(State successorState : successorStates){
                     if (successorState != null) {
-                        successors.add(successorState);
+                        if(action == ActionType.PICK_UP){
+                            List<State> pickUpSuccessors = new ArrayList<>();
+                            pickUpSuccessors.add(successorState);
+                            return pickUpSuccessors;
+                        }
+                        else{
+                            successors.add(successorState);
+                        }
                     }
                 }
             }
@@ -149,19 +178,27 @@ public class AStar {
         switch (action) {
             case MOVE:
                 List<State> neighbours = expandNeighbours(state);
-                List<State> validNeighbours = new ArrayList<>();
-
-                for (State neighbour : neighbours) {
-                    if (!closedStates.contains(neighbour)) {
-                        validNeighbours.add(neighbour);
+                return neighbours;
+    
+            case PICK_UP:
+                List<State> carriedItems = new ArrayList<>();
+                Iterator<State> iterator = itemList.iterator();
+                while (iterator.hasNext()) {
+                    State s = iterator.next();
+                    for (Item item : Item.values()) {
+                        if (state.getNode().equals(s.getItemNode(item)) && !s.isCarried()) {
+                            // Use iterator to safely remove elements instead of itemList.remove(item)
+                            iterator.remove();
+                            s.setCarried(true);
+                            State infoState = new State(Entity.EXPLORER, state.getNode());
+                            infoState.getNode().setG(state.getNode().getG());
+                            infoState.store(item);
+                            carriedItems.add(infoState);
+                        }
                     }
                 }
-                return validNeighbours;
-
-            case PICK_UP:
-                
-                break;
-        
+                return carriedItems;
+    
             default:
                 break;
         }
@@ -171,25 +208,28 @@ public class AStar {
     private boolean actionApplicable(ActionType action, State state) {
         switch (action) {
             case MOVE:
-                if(!expandNeighbours(state).isEmpty())
+                if (!expandNeighbours(state).isEmpty())
                     return true;
     
-            // case PICK_UP:
-            //     for(State s : itemList){
-            //         if(state.getNode().equals(s.getItemNode()) && !s.isCarried())
-            //             return true;
-            //     }
-            //     break;
+            case PICK_UP:
+                for (State s : itemList) {
+                    for (Item item : Item.values()) {
+                        Node itemNode = s.getItemNode(item);
+                        if (itemNode != null && state.getNode() != null && state.getNode().equals(itemNode) && !s.isCarried())
+                            return true;
+                    }
+                }
+                return false;
     
             default:
                 return false;
         }
     }
     
+    
 
     private List<State> expandNeighbours(State state){
         List<State> neighbours = new ArrayList<>();
-        //check this ------------------------------------------------------------------------------------------------------------------------------------
         int[][] directions = new int[][]{
             {1, 0}, //down
             {-1, 0}, //up
@@ -212,15 +252,30 @@ public class AStar {
         return neighbours;
     }
 
-
     private int calculateHCost(State tempState, List<State> landmarks) {
         int maxDistance = 0;
-
+    
         for(State landmark : landmarks){
-            int distance = calculateDistance(tempState.getNode(), landmark.getNode());
-            maxDistance = Math.max(maxDistance, distance);
+            if(landmark.getEntity() == null){
+                for(Item item : Item.values()){
+                    Node node1 = tempState.getNode();
+                    Node node2 = landmark.getItemNode(item);
+                    if (node1 != null && node2 != null) { 
+                        int distance = calculateDistance(node1, node2);
+                        maxDistance = Math.max(maxDistance, distance);
+                    }
+                }
+            }
+            else{
+                Node node1 = tempState.getNode();
+                Node node2 = goalState.getNode();
+                if (node1 != null && node2 != null) {
+                    int distance = calculateDistance(node1, node2);
+                    maxDistance = Math.max(maxDistance, distance);
+                }
+            }
         }
-
+    
         return maxDistance;
     }
 
@@ -236,6 +291,10 @@ public class AStar {
             add(new Node(2,1));
             add(new Node(3,1));
         }};
-        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, new Node(0, 3)), blockedNodes);
+        List<State> items = new ArrayList<>(){{
+            add(new State(Item.KEY, new Node(1, 2)));
+            add(new State(Item.TROPHY, new Node(3, 2)));
+        }};
+        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(0, 0))), blockedNodes, items);
     }
 }

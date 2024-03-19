@@ -49,4 +49,10 @@ public class StateTest {
         State tempState = new State(Entity.EXPLORER, new Node(0, 1));
         assertTrue(nextState.equals(tempState));
     }
+
+    @Test
+    void storeTest(){
+        initialState.store(Item.TROPHY);
+        assertTrue(initialState.hasItem(Item.TROPHY));
+    }
 }

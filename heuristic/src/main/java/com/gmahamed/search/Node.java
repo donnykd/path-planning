@@ -123,6 +123,9 @@ public class Node {
     @Override
     public boolean equals(Object obj){
         Node node = (Node) obj;
+        if(node == null){
+            return false;
+        }
         return this.i == node.i && this.j == node.j;
     }
 
