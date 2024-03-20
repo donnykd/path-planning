@@ -12,14 +12,16 @@ import java.util.PriorityQueue;
  *
  * @author Khalid Mahamed
  * 
- *         An implementation of the pathfinding algorithm A* created for the domain.
- *         
+ *         An implementation of a domain specific optimal pathfinding algorithm A*.
+ *         The algorithm works by taking the parameters of the connectivity space, 
+ *         the start state, the goal state, list of blocked nodes and list of items.
+ *         The algortihm is designed to find the most optimal path to the landmarks laid out,
+ *         and actions to take to reach the goal state. 
  *         
  * 
 */
 
 public class AStar {
-    private boolean solutionFound;
     PriorityQueue<State> openStates;
     HashSet<State> closedStates;
     List<State> itemList;
@@ -30,17 +32,38 @@ public class AStar {
     State goalState;
     State currentState;
 
-    //Constructor used when there are no blocked nodes and no items
+    /*
+     * Public constructor that runs the A* algorithm with parameters only for the connectivity space,
+     * start state and goal state.
+     * 
+     * @param spaceWidth, spaceHeight, startState and goalState. 
+     * Parameters used to initialise the A* search algorithm.
+    */
+
     public AStar(int spaceWidth, int spaceHeight, State startState, State goalState) {
+        // No blocked nodes and no items
         this(spaceWidth, spaceHeight, startState, goalState, new ArrayList<>(), new ArrayList<>());
     }
 
-    //Constructor used when there are blocked nodes but no items
+    /*
+     * Public constructor that runs the A* algorithm with parameters only for the connectivity space,
+     * start state, goal state and blocked nodes.
+     * 
+     * @param spaceWidth, spaceHeight, startState, goalState and blockedNodes. 
+     * Parameters used to initialise the A* search algorithm.
+    */
     public AStar(int spaceWidth, int spaceHeight, State startState, State goalState, List<Node> blockedNodes){
+        // Blocked nodes but no items
         this(spaceWidth, spaceHeight, startState, goalState, blockedNodes, new ArrayList<>());
     }
 
-    //Constructor used when there are blocked nodes
+    /*
+     * Public constructor that runs the A* algorithm with parameters for the connectivity space,
+     * start state, goal state, blocked nodes and items list.
+     * 
+     * @param spaceWidth, spaceHeight, startState, goalState, blockedNodes and items. 
+     * Parameters used to initialise the A* search algorithm.
+    */
     public AStar(int spaceWidth, int spaceHeight, State startState, State goalState, List<Node> blockedNodes, List<State> items) {
         space = new Node[spaceWidth][spaceHeight];
         //Open nodes queue sorted by the value of F
@@ -49,6 +72,7 @@ public class AStar {
         closedStates = new HashSet<State>();
         this.startState = startState;
         this.goalState = goalState;
+        //goalState added to itemList as that is used as the main way to pre compute heuristic cost of nodes
         itemList = items;
         itemList.add(goalState);
 
@@ -73,8 +97,11 @@ public class AStar {
 
     // Until goal State is found or there are no more States to expand, expand neighbour and add to openStates.
     private void loop() {
+        boolean solutionFound = false;
+        //Stores the time when states starts to expand
         long startTime = System.currentTimeMillis();
         int nodesExpanded = 0;
+        // '-1' used to store the actual itemList without the goalState in it
         int itemCount = itemList.size() - 1;
     
         while (!openStates.isEmpty()) {
@@ -82,10 +109,14 @@ public class AStar {
             closedStates.add(currentState);
             nodesExpanded++;
 
+            //if solution is found
             if (currentState.getNode().equals(goalState.getNode()) && itemList.size() == 1) {
+                //Stores the time when solution is found
                 long endTime = System.currentTimeMillis();
+                //Time solution found - time A* starts executing
                 long totalTime = endTime - startTime;
                 System.out.println("Solution found in " + totalTime + " milliseconds.");
+                //if startState and goalState are the same with no landmarks
                 if (currentState.getPreviousState() == null) {
                     System.out.println("Start state is the goal state: " + currentState.getNode());
                 }
@@ -96,23 +127,21 @@ public class AStar {
                 break;
             }
 
-            for(Item item : Item.values()){
-                if (currentState.hasItem(item) && itemCount != itemList.size() - 1) {
-                    closedStates.clear();
-                    openStates.clear();
-                    itemCount = itemList.size() - 1;
-                }
+            //Clears closedStates and openStates after landmark is reached
+            if (itemCount != itemList.size() - 1) {
+                closedStates.clear();
+                openStates.clear();
+                itemCount = itemList.size() - 1;
             }
     
             List<State> successors = generateSuccessors(currentState);
             for (State successor : successors) {
-                if (!closedStates.contains(successor)) {
+                //Makes sure this doesnt expand unnecessary states
+                if (!closedStates.contains(successor) && !openStates.contains(successor)) {
                     int gCostToNeighbour = currentState.getNode().getG() + 1;
-                    if (!openStates.contains(successor)) {
-                        successor.getNode().setG(gCostToNeighbour);
-                        successor.setPreviousState(currentState);
-                        openStates.add(successor);
-                    }
+                    successor.getNode().setG(gCostToNeighbour);
+                    successor.setPreviousState(currentState);
+                    openStates.add(successor);
                 }
             }
         }
@@ -124,10 +153,18 @@ public class AStar {
         }
     }
 
+    /** 
+     * This method traverses backward from the Goal state to the Start state,
+     * generating a list of actions in string format that needs to be taken to reach the Goal.
+     * 
+     * @param goal State where the reconstruction starts.
+     * @return List<String> that contains reversed list of actions taken in string format.
+     */
     public List<String> reconstructActions(State goal) {
         List<String> actions = new ArrayList<>();
         State curr = goal;
 
+        //Until the the traversal backwards reaches the start state
         while (curr != null && curr.getPreviousState() != null) {
             if(!curr.getNode().equals(curr.getPreviousState().getNode())){
                 ActionType move = ActionType.MOVE;
@@ -156,9 +193,11 @@ public class AStar {
 
         for (ActionType action : ActionType.values()){
             if(actionApplicable(action, state)){
+                //if the action is applicable, apply action to generate successor states
                 List <State> successorStates = applyAction(action, state);
                 for(State successorState : successorStates){
                     if (successorState != null) {
+                        //if action is pick up, prioritise and return that state alone
                         if(action == ActionType.PICK_UP){
                             List<State> pickUpSuccessors = new ArrayList<>();
                             pickUpSuccessors.add(successorState);
@@ -185,11 +224,11 @@ public class AStar {
                 Iterator<State> iterator = itemList.iterator();
                 while (iterator.hasNext()) {
                     State s = iterator.next();
+                    // Check if the current state is on the same node as any item and the item is not carried
                     for (Item item : Item.values()) {
                         if (state.getNode().equals(s.getItemNode(item)) && !s.isCarried()) {
                             // Use iterator to safely remove elements instead of itemList.remove(item)
                             iterator.remove();
-                            s.setCarried(true);
                             State infoState = new State(Entity.EXPLORER, state.getNode());
                             infoState.getNode().setG(state.getNode().getG());
                             infoState.store(item);
@@ -252,9 +291,11 @@ public class AStar {
         return neighbours;
     }
 
+    //Pre calculates the heuristic cost based on landmarks and goalState
     private int calculateHCost(State tempState, List<State> landmarks) {
         int maxDistance = 0;
     
+        // Iterate through landmarks to find the maximum distance to any landmark, this is to make A* admissable 
         for(State landmark : landmarks){
             if(landmark.getEntity() == null){
                 for(Item item : Item.values()){
@@ -279,6 +320,7 @@ public class AStar {
         return maxDistance;
     }
 
+    // Calculates the Manhattan distance between two nodes.
     private int calculateDistance(Node node1, Node node2) {
         return Math.abs(node1.i - node2.i) + Math.abs(node1.j - node2.j);
     }
