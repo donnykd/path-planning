@@ -25,3 +25,37 @@ Term 1:
 Term 2:
 
 20/01/24 ~ Week 1: I received my interim results this week, which I have started implementing some of the changes mentioned in the feedback. I have started creating unit tests for past problems, looked into problem generators using templates and updated my README file. I have booked a meeting with my supervisor next week thursday to get a start with creating domain specific heuristics, but for now my plan is to incorporate all the feedback I have received as well as add more content with the problem generator.
+
+23/01/24 ~ Week 2: I decided to finish most of the feedback such as removing excess disjunctive preconditions by implementing template generated problems. This will solve the need to the need to use a disjunctive precondition for connected blocks. I havent yet removed it from the domain however as ill try to focus on that when I add more content to the domain later down the road. This is just in preperation for my meeting with my supervisor this thursday.
+
+25/01/24 ~ Week 2: Ive just finished my much needed meeting wth supervisor on how much I need to do. I took adequate notes and will start my research phase on optimality as well as ways to implement an A* search algorithm using a domain specific heuristic. I was recommended to research landmark heuristics mostly!
+
+30/01/24 ~ Week 3: I finished all the templates for the problems I have so far and since how ive implemented both the template & tests, as well as the troubles and limitations of both are still fresh in my mind, I chose to write them down in detail on the specifics to make it easier for me later on to recall them. I also went back to second years AI module to refresh my brain on search algorithms specifically on A* and the logic behind it. I also have done some research on landmark heuristic but I found it difficult to comprehend as of now, by comprehend I dont mean the concept but how I would actually be implementing. Maybe its just me not actually starting the implementation of A* so I assume with time it will be clearer.
+
+03/02/24 ~ Week 3: I started writing A* search algorithm, I was having a difficult time choosing between either python or java, but since I wanted to follow a TDD method and was already familiar with Junit I decided to go with Java. I am not sure if compiled language would be much of a performance boost in contrast to an interpreted language, but I mean why not do what im comfortable with. 
+
+08/02/24 ~ Week 4: I have gotten a good amount of the algorithm completed. Nothing else has been my focus really, I did look for more resources regarding landmark heuristic but I decided ill give it a full go once I get my algorithm completed a bit. I plan to by the weekend and start trying to change the heuristic from distance to goal based to amount of unfinished landmarks based. This also allows me to email my supervisor if I get lost throughout the weekend on how I should implement.
+
+10/02/24 ~ Week 4: It turns out landmarks are not as easy as I thought, the resources I found go deep into planning theory about content I do not know or understand. The method of implementing also seems like a mystery. I have finished the A* star implementation and all I have is adding tests hopefully by monday and will contact supervisor to book a meeting, to help clear all the problems.
+
+12/02/24 ~ Week 5: I e-mailed my supervisor to book a meeting today, I also further optimised by A* implementation but decided to keep the manhattan distance as heuristic for now. The algorithm works as expected with blocked nodes as well.
+
+14/02/24 ~ Week 5: My supervisor responded yesterday, making our meeting at 1pm on friday. Currently writing down a list of questions to ask him on friday to make use of all the time we have.
+
+16/02/24 ~ Week 5: Before my meeting at 10 today, my supervisor sent me very useful resources regarding a software engineering tool used to aid domain-specific heuristics called causal graphs, which he spoke in further detail in the meeting. He also sent me an example for me to look through which was linked to the slides. In the meeting he assisted me with breaking down how I should think with this different approach, as I need to check what actions are possible in every state and use a success generator to find other states. Casual graphs will help me break down what actions/preconditions cause other actions/preconditions.
+
+20/02/24 ~ Week 6: I have created many causal graphs that cover most of my domain, this will be useful in my software engineering section in the report.
+
+24/02/24 ~ Week 6: Some extenuating circumstances have occured and with not being in the mindset nor have the time to actually do much work while juggling other modules, I decided to plan the report for now. Created a rough outline for how the report will be, rechecked what the final deliverables are and collected all the information I learnt into a document to later use.
+
+26/02/24 ~ Week 7: With not much time on my hands, I decided to comment on my current code and document it as it is one of the requirements for the final deliverables, so might as well get it out of the way right now.
+
+01/03/24 ~ Week 7: Even though my supervisor has explained to me success generators and how it works, I still find it difficult to understand where I should start. Instead of wasting time trying to figure it out, I went with a mentality of "I will just figure this out as I work along". Basically I started hard coding my PDDL domain into java, started with creating java enums and classes representing actions, objects and predicates in the form of states.
+
+10/03/24 ~ Week 8: I continued working on new actions in the action class and started editing the A* class to now add states to handle. Realised I can just have the success generator all in that class. Since I am so behind because of some unavoidable circumstances that have occured, ill contact my supervisor to give me feedback on my work soon. It might give me new ideas on how to salvage the project.
+
+13/03/24 ~ Week 9: On Monday I contacted my supervisor to book a meeting. Really need it right now. I have been updating my A* class but im running into many issues, and I cant even commit parts because editing it makes the entire class be full of errors. The meeting is booked for next week monday, so I have 1 week to try my best in salvaging the project. I also need to start thinking more about my report, but I think I can do most of it the last 2 weeks.
+
+16/03/24 ~ Week 9: I have finished a prototype of the state update in the A* class. It now allows movements depending on state, with changes to how ill be calculating the heuristic cost. I am still running into many issues regarding other actions but its a step in the right direction. I also planned created the layout of the report.
+
+19/03/24 ~ Week 10: Yesterday I talked with my supervisor and to my surprise, I guess I wasnt too behind. He also gave me some recommendations which were much needed to the direction my project will go. For today I completed pick up action on my Astar class, what ill do for now is refactor and comment, merge with main and create a release branch with this much. That will allow me to focus on editing the class in another branch and creating another way of calculating the heuristic so I can compare the 2 for my report.
