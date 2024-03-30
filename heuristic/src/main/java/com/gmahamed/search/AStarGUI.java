@@ -8,10 +8,15 @@ public class AStarGUI extends JFrame {
     private JPanel gridPanel;
     private int spaceWidth;
     private int spaceHeight;
+    private State startState;
+    private State goalState;
+    private State currentState;
 
-    public AStarGUI(int spaceWidth, int spaceHeight) {
+    public AStarGUI(int spaceWidth, int spaceHeight, State startState, State goalState) {
         this.spaceWidth = spaceWidth;
         this.spaceHeight = spaceHeight;
+        this.startState = startState;
+        this.goalState = goalState;
 
         setTitle("AStar Visualization");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,12 +34,19 @@ public class AStarGUI extends JFrame {
                 JPanel cell = new JPanel();
                 cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 gridPanel.add(cell);
+
+                if(i == startState.getNode().i && j == startState.getNode().j){
+                    cell.setBackground(Color.GREEN);
+                    currentState = startState;
+                }
+                if(i == goalState.getNode().i && j == goalState.getNode().j){
+                    cell.setBackground(Color.red);
+                }
             }
         }
         setVisible(true);
     }
 
     public static void main(String[] args) {
-        new AStarGUI(5, 5);
     }
 }

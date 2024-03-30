@@ -75,6 +75,8 @@ public class AStar {
         //goalState added to itemList as that is used as the main way to pre compute heuristic cost of nodes
         itemList = items;
         itemList.add(goalState);
+        //gui
+        AStarGUI gui = new AStarGUI(spaceWidth, spaceHeight, startState, goalState);
 
         //Populate the entire space with nodes
         for (int i = 0; i < space.length; i++) {
@@ -337,6 +339,6 @@ public class AStar {
             add(new State(Item.KEY, new Node(1, 2)));
             add(new State(Item.TROPHY, new Node(3, 2)));
         }};
-        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(0, 0))), blockedNodes, items);
+        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(3, 4))), blockedNodes, items);
     }
 }
