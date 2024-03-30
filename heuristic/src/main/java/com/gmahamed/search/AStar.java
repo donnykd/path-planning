@@ -259,7 +259,7 @@ public class AStar {
                     }
                 }
                 return false;
-    
+            
             default:
                 return false;
         }
