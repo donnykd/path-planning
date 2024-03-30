@@ -2,6 +2,7 @@ package com.gmahamed.search;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class AStarGUI extends JFrame {
 
@@ -11,12 +12,16 @@ public class AStarGUI extends JFrame {
     private State startState;
     private State goalState;
     private State currentState;
+    private List<Node> blockedNodes;
+    private List<State> itemList;
 
-    public AStarGUI(int spaceWidth, int spaceHeight, State startState, State goalState) {
+    public AStarGUI(int spaceWidth, int spaceHeight, State startState, State goalState, List<Node> blockedNodes, List<State> itemList) {
         this.spaceWidth = spaceWidth;
         this.spaceHeight = spaceHeight;
         this.startState = startState;
         this.goalState = goalState;
+        this.blockedNodes = blockedNodes;
+        this.itemList = itemList;
 
         setTitle("AStar Visualization");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,11 +47,26 @@ public class AStarGUI extends JFrame {
                 if(i == goalState.getNode().i && j == goalState.getNode().j){
                     cell.setBackground(Color.red);
                 }
+
+                for (Node blockedNode : blockedNodes) {
+                    if(i == blockedNode.i && j == blockedNode.j){
+                        cell.setBackground(Color.BLACK);
+                    }        
+                }
+
+                for (State landmark : itemList){
+                    if(landmark.set_entity != null)
+                        break;
+                    for(Item item : Item.values()){
+                        if(landmark.getItemNode(item) == null)
+                            break;
+                        if(i == landmark.getItemNode(item).i && j == landmark.getItemNode(item).j){
+                            cell.setBackground(Color.orange);
+                        }
+                    }
+                }
             }
         }
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
     }
 }

@@ -76,7 +76,7 @@ public class AStar {
         itemList = items;
         itemList.add(goalState);
         //gui
-        AStarGUI gui = new AStarGUI(spaceWidth, spaceHeight, startState, goalState);
+        new AStarGUI(spaceWidth, spaceHeight, startState, goalState, blockedNodes, itemList);
 
         //Populate the entire space with nodes
         for (int i = 0; i < space.length; i++) {
@@ -337,7 +337,7 @@ public class AStar {
         }};
         List<State> items = new ArrayList<>(){{
             add(new State(Item.KEY, new Node(1, 2)));
-            add(new State(Item.TROPHY, new Node(3, 2)));
+            add(new State(Item.KEY, new Node(3, 2)));
         }};
         new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(3, 4))), blockedNodes, items);
     }
