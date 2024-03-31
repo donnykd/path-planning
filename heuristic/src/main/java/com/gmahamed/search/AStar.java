@@ -25,6 +25,7 @@ public class AStar {
     PriorityQueue<State> openStates;
     HashSet<State> closedStates;
     List<State> itemList;
+    AStarGUI gui;
 
     //The connectivity space of the nodes
     Node[][] space;
@@ -75,6 +76,8 @@ public class AStar {
         //goalState added to itemList as that is used as the main way to pre compute heuristic cost of nodes
         itemList = items;
         itemList.add(goalState);
+        //gui
+        gui = new AStarGUI(spaceWidth, spaceHeight, startState, goalState, blockedNodes, itemList);
 
         //Populate the entire space with nodes
         for (int i = 0; i < space.length; i++) {
@@ -106,6 +109,7 @@ public class AStar {
     
         while (!openStates.isEmpty()) {
             currentState = openStates.poll();
+            gui.updateGrid(currentState);
             closedStates.add(currentState);
             nodesExpanded++;
 
@@ -166,6 +170,7 @@ public class AStar {
 
         //Until the the traversal backwards reaches the start state
         while (curr != null && curr.getPreviousState() != null) {
+            gui.reconstructGrid(curr);
             if(!curr.getNode().equals(curr.getPreviousState().getNode())){
                 ActionType move = ActionType.MOVE;
                 actions.add(new String(move.toString() + " " + curr.getPreviousState().getNode().toString() + " -> " + curr.getNode().toString()));
@@ -259,7 +264,7 @@ public class AStar {
                     }
                 }
                 return false;
-    
+            
             default:
                 return false;
         }
@@ -335,8 +340,8 @@ public class AStar {
         }};
         List<State> items = new ArrayList<>(){{
             add(new State(Item.KEY, new Node(1, 2)));
-            add(new State(Item.TROPHY, new Node(3, 2)));
+            add(new State(Item.KEY, new Node(3, 2)));
         }};
-        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(0, 0))), blockedNodes, items);
+        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(3, 4))), blockedNodes, items);
     }
 }

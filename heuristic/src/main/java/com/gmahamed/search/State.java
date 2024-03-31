@@ -7,7 +7,7 @@ import java.util.*;
  * It includes the current position of the entity, carried items, and previous state.
  */
 public class State {
-    private Entity set_entity;
+    public Entity set_entity;
     private Map<Entity, List<Object>> currentState;
     private Map<Item, Node> items = new HashMap<>();
     private State previousState;
