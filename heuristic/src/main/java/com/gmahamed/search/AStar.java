@@ -25,6 +25,7 @@ public class AStar {
     PriorityQueue<State> openStates;
     HashSet<State> closedStates;
     List<State> itemList;
+    AStarGUI gui;
 
     //The connectivity space of the nodes
     Node[][] space;
@@ -76,7 +77,7 @@ public class AStar {
         itemList = items;
         itemList.add(goalState);
         //gui
-        new AStarGUI(spaceWidth, spaceHeight, startState, goalState, blockedNodes, itemList);
+        gui = new AStarGUI(spaceWidth, spaceHeight, startState, goalState, blockedNodes, itemList);
 
         //Populate the entire space with nodes
         for (int i = 0; i < space.length; i++) {
@@ -108,6 +109,7 @@ public class AStar {
     
         while (!openStates.isEmpty()) {
             currentState = openStates.poll();
+            gui.updateGrid(currentState);
             closedStates.add(currentState);
             nodesExpanded++;
 
@@ -168,6 +170,7 @@ public class AStar {
 
         //Until the the traversal backwards reaches the start state
         while (curr != null && curr.getPreviousState() != null) {
+            gui.reconstructGrid(curr);
             if(!curr.getNode().equals(curr.getPreviousState().getNode())){
                 ActionType move = ActionType.MOVE;
                 actions.add(new String(move.toString() + " " + curr.getPreviousState().getNode().toString() + " -> " + curr.getNode().toString()));
