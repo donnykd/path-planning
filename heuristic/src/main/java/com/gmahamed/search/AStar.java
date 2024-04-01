@@ -75,7 +75,6 @@ public class AStar {
         this.goalState = goalState;
         //goalState added to itemList as that is used as the main way to pre compute heuristic cost of nodes
         itemList = items;
-        itemList.add(goalState);
         //gui
         gui = new AStarGUI(spaceWidth, spaceHeight, startState, goalState, blockedNodes, itemList);
 
@@ -83,8 +82,6 @@ public class AStar {
         for (int i = 0; i < space.length; i++) {
             for (int j = 0; j < space[i].length; j++) {
                 space[i][j] = new Node(i, j);
-                State tempState = new State(Entity.EXPLORER, space[i][j]);
-                space[i][j].setH(calculateHCost(tempState, itemList));
             }
         }
 
@@ -104,8 +101,7 @@ public class AStar {
         //Stores the time when states starts to expand
         long startTime = System.currentTimeMillis();
         int nodesExpanded = 0;
-        // '-1' used to store the actual itemList without the goalState in it
-        int itemCount = itemList.size() - 1;
+        int itemCount = itemList.size();
     
         while (!openStates.isEmpty()) {
             currentState = openStates.poll();
@@ -114,7 +110,7 @@ public class AStar {
             nodesExpanded++;
 
             //if solution is found
-            if (currentState.getNode().equals(goalState.getNode()) && itemList.size() == 1) {
+            if (currentState.getNode().equals(goalState.getNode()) && itemList.size() == 0) {
                 //Stores the time when solution is found
                 long endTime = System.currentTimeMillis();
                 //Time solution found - time A* starts executing
@@ -132,10 +128,10 @@ public class AStar {
             }
 
             //Clears closedStates and openStates after landmark is reached
-            if (itemCount != itemList.size() - 1) {
+            if (itemCount != itemList.size()) {
                 closedStates.clear();
                 openStates.clear();
-                itemCount = itemList.size() - 1;
+                itemCount = itemList.size();
             }
     
             List<State> successors = generateSuccessors(currentState);
@@ -202,6 +198,7 @@ public class AStar {
                 List <State> successorStates = applyAction(action, state);
                 for(State successorState : successorStates){
                     if (successorState != null) {
+                        successorState.getNode().setH(calculateHCost(successorState, itemList));
                         //if action is pick up, prioritise and return that state alone
                         if(action == ActionType.PICK_UP){
                             List<State> pickUpSuccessors = new ArrayList<>();
@@ -264,7 +261,7 @@ public class AStar {
                     }
                 }
                 return false;
-            
+    
             default:
                 return false;
         }
@@ -298,31 +295,36 @@ public class AStar {
 
     //Pre calculates the heuristic cost based on landmarks and goalState
     private int calculateHCost(State tempState, List<State> landmarks) {
-        int maxDistance = 0;
+        if (landmarks.isEmpty()) {
+            // If there are no landmarks, calculate distance to the goal state
+            return calculateDistance(tempState.getNode(), goalState.getNode());
+        }
+
+        State closestLandmark = findClosestLandmark(tempState, landmarks);
+
+        int hCost = calculateDistance(tempState.getNode(), closestLandmark.getItemNode(Item.KEY));
+
+        // If the closest landmark is reached, remove it from the list
+        if (tempState.getNode().equals(closestLandmark.getItemNode(Item.KEY))) {
+            landmarks.remove(closestLandmark);
+        }
+
+        return hCost;
+    }
+
+    private State findClosestLandmark(State currentState, List<State> landmarks) {
+        State closestLandmark = landmarks.get(0);
+        int minDistance = calculateDistance(currentState.getNode(), closestLandmark.getItemNode(Item.KEY));
     
-        // Iterate through landmarks to find the maximum distance to any landmark, this is to make A* admissable 
-        for(State landmark : landmarks){
-            if(landmark.getEntity() == null){
-                for(Item item : Item.values()){
-                    Node node1 = tempState.getNode();
-                    Node node2 = landmark.getItemNode(item);
-                    if (node1 != null && node2 != null) { 
-                        int distance = calculateDistance(node1, node2);
-                        maxDistance = Math.max(maxDistance, distance);
-                    }
-                }
-            }
-            else{
-                Node node1 = tempState.getNode();
-                Node node2 = goalState.getNode();
-                if (node1 != null && node2 != null) {
-                    int distance = calculateDistance(node1, node2);
-                    maxDistance = Math.max(maxDistance, distance);
-                }
+        for (int i = 1; i < landmarks.size(); i++) {
+            int distance = calculateDistance(currentState.getNode(), landmarks.get(i).getItemNode(Item.KEY));
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestLandmark = landmarks.get(i);
             }
         }
     
-        return maxDistance;
+        return closestLandmark;
     }
 
     // Calculates the Manhattan distance between two nodes.
@@ -342,6 +344,6 @@ public class AStar {
             add(new State(Item.KEY, new Node(1, 2)));
             add(new State(Item.KEY, new Node(3, 2)));
         }};
-        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(3, 4))), blockedNodes, items);
+        new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(0, 4))), blockedNodes, items);
     }
 }

@@ -2,8 +2,6 @@ package com.gmahamed.search;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class AStarGUI extends JFrame {
@@ -13,7 +11,6 @@ public class AStarGUI extends JFrame {
     private int spaceHeight;
     private State startState;
     private State goalState;
-    private State currentState;
     private List<Node> blockedNodes;
     private List<State> itemList;
 
@@ -49,7 +46,6 @@ public class AStarGUI extends JFrame {
                     label.setForeground(Color.BLACK);
                     label.setFont(new Font(label.getFont().getName(), Font.PLAIN, 24));
                     cell.add(label);
-                    currentState = startState;
                 }
                 if(i == goalState.getNode().i && j == goalState.getNode().j){
                     JLabel label = new JLabel("Goal");
@@ -82,7 +78,6 @@ public class AStarGUI extends JFrame {
     }
 
     public void updateGrid(State state) {
-        currentState = state;
         try {
             Thread.sleep(100); // Delay in milliseconds
         } catch (InterruptedException e) {
