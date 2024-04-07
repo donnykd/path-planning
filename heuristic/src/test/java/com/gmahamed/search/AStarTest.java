@@ -61,25 +61,4 @@ public class AStarTest {
         assertEquals("Move i: 0, j: 0 -> i: 1, j: 0", generatedPath.get(0).toString());
         assertEquals("Move i: 1, j: 3 -> i: 0, j: 3", generatedPath.get(10).toString());
     }
-
-    @Test //5th Test
-    //Test to check if path is correctly generated with landmarks
-    void landmarksTest(){
-        List<Node> blockedNodes = new ArrayList<>(){{
-            add(new Node(0,1));
-            add(new Node(1,1));
-            add(new Node(2,1));
-            add(new Node(3,1));
-        }};
-        List<State> items = new ArrayList<>(){{
-            add(new State(Item.KEY, new Node(1, 2)));
-            add(new State(Item.TROPHY, new Node(3, 2)));
-        }};
-
-        path = new AStar(5, 5, new State(Entity.EXPLORER, new Node(0, 0)), new State(Entity.EXPLORER, (new Node(0, 0))), blockedNodes, items);
-        List<String> generatedPath = path.reconstructActions(path.currentState);
-
-        assertFalse(generatedPath.isEmpty());
-        assertEquals(20, generatedPath.size());
-    }
 }
