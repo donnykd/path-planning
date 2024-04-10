@@ -6,16 +6,18 @@ import java.util.List;
 
 /**
  *
- * @author Khalid Mahamed
+ * Creates a node used for A* Search algorithm.
+ * Coordinates, parent node and cost information will be used in assistance for the A* search.
  * 
- *         Creates a node used for A* Search algorithm.
- *         Coordinates, parent node and cost information will be used in assistance for the A* search.
+ * @author Khalid Mahamed
  *         
  * 
 */
 public class Node {
 
-    //co-ordinates
+    /**
+     * The co-ordinates of the node
+     */
     public int i, j;
 
     //parent node
@@ -30,6 +32,12 @@ public class Node {
     //h(n) = estimated cost to goal from n
     private int g, h, f;
 
+    /**
+     * Creates a node used for the A* Search algorithm.
+     * 
+     * @param i The x-coordinate of the node.
+     * @param j The y-coordinate of the node.
+     */
     public Node(int i, int j) {
         //instantiating initial co-ordinates aswell as the cost of f
         this.i = i;
@@ -109,6 +117,9 @@ public class Node {
     }
 
     // Updates f whenever g or h changes.
+    /**
+     * Updates the total estimated cost to reach the goal node through the current node. 
+     */
     public void updateF(){
         f = g + h;
     }
@@ -133,7 +144,7 @@ public class Node {
     /** 
      * Returns a list of nodes reversed, starting from start node to goal node while assigning a parent node to each node.
      * 
-     * @return List<Node> of nodes in the solution from start node to goal node.
+     * @return A List of Node objects representing the solution path from the start node to the goal node.
      */
     public List<Node> getSolution() {
         List<Node> path = new ArrayList<>();

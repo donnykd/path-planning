@@ -1,7 +1,7 @@
 package com.gmahamed.search;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,14 @@ public class StateTest {
     void testGetNode() {
         initialState.getNode().toString();
         assertEquals("i: 0, j: 0", initialState.getNode().toString());
+    }
+
+    @Test
+    //Checks that getNode method returns the location of entity
+    void testGetItemNode() {
+        State itemState = new State(Item.KEY, new Node(0, 1));
+        itemState.getItemNode(Item.KEY).toString();
+        assertEquals("i: 0, j: 1", itemState.getItemNode(Item.KEY).toString());
     }
 
     @Test

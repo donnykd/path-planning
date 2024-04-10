@@ -5,8 +5,14 @@ import java.util.*;
 /**
  * Represents the state of an entity in the search space.
  * It includes the current position of the entity, carried items, and previous state.
+ * 
+ * @author Khalid Mahamed
+ * 
  */
 public class State {
+    /**
+     * Carries the entity set in the map.
+     */
     public Entity set_entity;
     private Map<Entity, List<Object>> currentState;
     private Map<Item, Node> items = new HashMap<>();

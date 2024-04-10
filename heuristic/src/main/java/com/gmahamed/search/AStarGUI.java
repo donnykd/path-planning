@@ -6,23 +6,29 @@ import java.util.List;
 
 /**
  * A graphical user interface for visualizing the A* pathfinding algorithm.
+ * 
+ * @author Khalid Mahamed
  */
 public class AStarGUI extends JFrame {
 
-    private JPanel gridPanel;
-    private int spaceWidth;
-    private int spaceHeight;
-    private State startState;
-    private State goalState;
-    private List<Node> blockedNodes;
-    private List<State> itemList;
+    private JPanel gridPanel; // Grid panel
+    private int spaceWidth; // Width of the connectivity space
+    private int spaceHeight; // Height of the connectivity space
+    private State startState; // The start state
+    private State goalState; // The goal state
+    private List<Node> blockedNodes; // List of blocked nodes
+    private List<State> itemList; // List of items
 
     /**
      * Constructs a new AStarGUI with the specified dimensions, start and goal states,
      * list of blocked nodes, and list of items.
      *
-     * @param spaceWidth, spaceHeight, startState, goalState, blockedNodes and items. 
-     * Parameters used to initialise the A* search algorithm.
+     * @param spaceWidth The width of the connectivity space.
+     * @param spaceHeight The Height of the connectivity space.
+     * @param startState The start state.
+     * @param goalState The goal state.
+     * @param blockedNodes List of blocked nodes.
+     * @param itemList List of items.
     */
     public AStarGUI(int spaceWidth, int spaceHeight, State startState, State goalState, List<Node> blockedNodes, List<State> itemList) {
         this.spaceWidth = spaceWidth;

@@ -9,15 +9,13 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
+ * An implementation of a domain specific optimal pathfinding algorithm A*.
+ * The algorithm works by taking the parameters of the connectivity space, 
+ * the start state, the goal state, list of blocked nodes and list of items.
+ * The algortihm is designed to find the most optimal path to the landmarks laid out,
+ * and actions to take to reach the goal state. 
  *
- * @author Khalid Mahamed
- * 
- *         An implementation of a domain specific optimal pathfinding algorithm A*.
- *         The algorithm works by taking the parameters of the connectivity space, 
- *         the start state, the goal state, list of blocked nodes and list of items.
- *         The algortihm is designed to find the most optimal path to the landmarks laid out,
- *         and actions to take to reach the goal state. 
- *         
+ * @author Khalid Mahamed    
  * 
 */
 
@@ -33,38 +31,48 @@ public class AStar {
     State goalState;
     State currentState;
 
-    /*
+
+    /**
      * Public constructor that runs the A* algorithm with parameters only for the connectivity space,
      * start state and goal state.
      * 
-     * @param spaceWidth, spaceHeight, startState and goalState. 
-     * Parameters used to initialise the A* search algorithm.
-    */
-
+     * @param spaceWidth The width of the connectivity space.
+     * @param spaceHeight The Height of the connectivity space.
+     * @param startState The start state.
+     * @param goalState The goal state.
+     */
     public AStar(int spaceWidth, int spaceHeight, State startState, State goalState) {
         // No blocked nodes and no items
         this(spaceWidth, spaceHeight, startState, goalState, new ArrayList<>(), new ArrayList<>());
     }
 
-    /*
+    /**
      * Public constructor that runs the A* algorithm with parameters only for the connectivity space,
      * start state, goal state and blocked nodes.
      * 
-     * @param spaceWidth, spaceHeight, startState, goalState and blockedNodes. 
-     * Parameters used to initialise the A* search algorithm.
-    */
+     * @param spaceWidth The width of the connectivity space.
+     * @param spaceHeight The Height of the connectivity space.
+     * @param startState The start state.
+     * @param goalState The goal state.
+     * @param blockedNodes List of blocked nodes.
+     */
     public AStar(int spaceWidth, int spaceHeight, State startState, State goalState, List<Node> blockedNodes){
         // Blocked nodes but no items
         this(spaceWidth, spaceHeight, startState, goalState, blockedNodes, new ArrayList<>());
     }
 
-    /*
+
+    /**
      * Public constructor that runs the A* algorithm with parameters for the connectivity space,
      * start state, goal state, blocked nodes and items list.
      * 
-     * @param spaceWidth, spaceHeight, startState, goalState, blockedNodes and items. 
-     * Parameters used to initialise the A* search algorithm.
-    */
+     * @param spaceWidth The width of the connectivity space.
+     * @param spaceHeight The Height of the connectivity space.
+     * @param startState The start state.
+     * @param goalState The goal state.
+     * @param blockedNodes List of blocked nodes.
+     * @param items List of items.
+     */
     public AStar(int spaceWidth, int spaceHeight, State startState, State goalState, List<Node> blockedNodes, List<State> items) {
         space = new Node[spaceWidth][spaceHeight];
         //Open nodes queue sorted by the value of F
@@ -157,8 +165,8 @@ public class AStar {
      * This method traverses backward from the Goal state to the Start state,
      * generating a list of actions in string format that needs to be taken to reach the Goal.
      * 
-     * @param goal State where the reconstruction starts.
-     * @return List<String> that contains reversed list of actions taken in string format.
+     * @param goal The State where the reconstruction starts.
+     * @return A List of Strings containing the reversed list of actions taken in string format.
      */
     public List<String> reconstructActions(State goal) {
         List<String> actions = new ArrayList<>();
