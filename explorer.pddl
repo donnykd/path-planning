@@ -46,10 +46,7 @@
         (located ?e ?x)
         (free ?y)
         ;allows flexibility in init to only declare connection once
-        (or
-            (connected ?x ?y)
-            (connected ?y ?x)
-        )
+        (connected ?x ?y)
         ;makes sure there is direct access
         (not(blocked ?x ?y))
         (not(blocked ?y ?x))
@@ -91,15 +88,9 @@
         (not(restricted ?e))
         ;allows flexibility in init to only declare connection once
         ;explorer and box connected
-        (or
-            (connected ?x ?y)
-            (connected ?y ?x)
-        )
+        (connected ?x ?y)
         ;explorer is connected to the free space to pull back to
-        (or
-            (connected ?y ?z)
-            (connected ?z ?y)
-        )
+        (connected ?z ?y)
         ;makes sure there is direct access
         (not(blocked ?y ?z))
         (not(blocked ?z ?y))
@@ -129,15 +120,9 @@
         (not(restricted ?e))
         ;allows flexibility in init to only declare connection once
         ;explorer and box connected
-        (or
-            (connected ?x ?y)
-            (connected ?y ?x)
-        )
+        (connected ?x ?y)
         ;box is connected to the space to be pushed to
-        (or
-            (connected ?x ?z)
-            (connected ?z ?x)
-        )
+        (connected ?x ?z)
         ;makes sure there is direct access
         (not(blocked ?y ?x))
         (not(blocked ?x ?y))
@@ -167,10 +152,7 @@
         (located ?e ?x)
         (located ?p ?y)
         ;allows flexibility in init to only declare connection once
-        (or
-            (connected ?x ?y)
-            (connected ?y ?x)
-        )
+        (connected ?x ?y)
         ;makes sure there is direct access
         (not(blocked ?x ?y))
         (not(blocked ?y ?x))
@@ -195,10 +177,7 @@
         (type_chest ?k)
         (stored ?e ?k)
         ;allows flexibility in init to only declare connection once
-        (or
-            (connected ?x ?y)
-            (connected ?y ?x)
-        )
+        (connected ?x ?y)
         (not(blocked ?x ?y))
         (not(blocked ?y ?x))
     )
@@ -337,10 +316,7 @@
         (stored ?c ?i)
         (located ?c ?x)
         (located ?e ?y)
-        (or
-            (connected ?x ?y)
-            (connected ?y ?x)
-        )
+        (connected ?x ?y)
     )
     :effect (and 
         (not(stored ?c ?i))
