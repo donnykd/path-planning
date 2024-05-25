@@ -1,7 +1,5 @@
-# Path Planning in a Game Environment
-An unlisted youtube video describing the project: https://youtu.be/1BO0VXOI-cM
+# Path Planning in a Game Environment 
 
-## This is Galid Mahamed's Work on AI Planning
 This repository contains PDDL files such as the domain which is called "explorer.pddl" and 7 problem files each in their own folder. The problem file folders also contain the expected test results for the problem files which are used to test them.
 
 An A* algorithm was also created and is inside the maven project folder called heuristic. This folder holds the classes and tests created when implementing an A* algorithm with a domain specific heuristic. The main classes can be found in the subdirectory *..heuristic\src\main\java\com\gmahamed\search* while the tests can be found in *..heuristic\src\test\java\com\gmahamed\search*
