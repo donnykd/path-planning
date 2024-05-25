@@ -1,4 +1,4 @@
-# Final Year Project
+# Path Planning in a Game Environment
 An unlisted youtube video describing the project: https://youtu.be/1BO0VXOI-cM
 
 ## This is Galid Mahamed's Work on AI Planning
